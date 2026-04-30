@@ -8,23 +8,27 @@
 <style>
 :root {
   --navy: #0a1628; --navy-mid: #112240; --navy-light: #1a3357;
-  --teal: #0fb4a0; --teal-dim: #0d9a88;
-  --gold: #c9a84c; --gold-dim: #a88834;
+  --teal: #0fb4a0; --teal-dim: #0d9a88; --teal-pale: rgba(15,180,160,0.1);
+  --gold: #c9a84c; --gold-dim: #a88834; --gold-pale: rgba(201,168,76,0.1);
   --cream: #f5f1eb; --text-main: #f0ece4;
   --text-muted: #8a9bb5; --text-dim: #4a5a70;
-  --danger: #e05555; --border: rgba(255,255,255,0.07);
+  --danger: #e05555; --danger-pale: rgba(224,85,85,0.1);
+  --green: #0fb4a0; --green-pale: rgba(15,180,160,0.12);
+  --border: rgba(255,255,255,0.07); --border-mid: rgba(255,255,255,0.12);
   --card-bg: rgba(255,255,255,0.04); --card-hover: rgba(255,255,255,0.07);
-  --radius: 12px; --radius-sm: 8px;
+  --radius: 12px; --radius-sm: 8px; --radius-xs: 5px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--text-main); min-height: 100vh; font-size: 15px; line-height: 1.6; }
 body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 60% at 20% 10%, rgba(15,180,160,0.08) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 80%, rgba(201,168,76,0.06) 0%, transparent 60%); pointer-events: none; z-index: 0; }
 .app { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 20px 110px; }
 
+/* HEADER */
 .header { display: flex; align-items: center; justify-content: space-between; padding: 28px 0 32px; border-bottom: 0.5px solid var(--border); margin-bottom: 36px; }
 .logo-title { font-family: 'Instrument Serif', serif; font-size: 24px; color: var(--cream); letter-spacing: -0.3px; }
 .logo-sub { font-size: 11px; font-weight: 300; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-left: 10px; }
 
+/* BUTTONS */
 .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s; border: none; white-space: nowrap; }
 .btn-primary { background: var(--teal); color: var(--navy); }
 .btn-primary:hover { background: var(--teal-dim); }
@@ -33,13 +37,15 @@ body::before { content: ''; position: fixed; inset: 0; background: radial-gradie
 .btn-ghost { background: transparent; color: var(--text-muted); border: 0.5px solid var(--border); }
 .btn-ghost:hover { background: var(--card-hover); color: var(--text-main); }
 .btn-danger { background: transparent; color: var(--danger); border: 0.5px solid rgba(224,85,85,0.3); }
-.btn-danger:hover { background: rgba(224,85,85,0.1); }
+.btn-danger:hover { background: var(--danger-pale); }
 .btn-sm { padding: 5px 12px; font-size: 12px; }
 .btn-xs { padding: 3px 9px; font-size: 11px; }
 
+/* VIEWS */
 .view { display: none; }
 .view.active { display: block; }
 
+/* FLEET */
 .section-label { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
 .boats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-bottom: 28px; }
 .boat-card { background: var(--card-bg); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 20px 22px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
@@ -53,9 +59,10 @@ body::before { content: ''; position: fixed; inset: 0; background: radial-gradie
 .add-boat-card { background: transparent; border: 0.5px dashed var(--text-dim); border-radius: var(--radius); padding: 20px 22px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--text-dim); font-size: 13px; min-height: 120px; }
 .add-boat-card:hover { border-color: var(--teal); color: var(--teal); background: rgba(15,180,160,0.04); }
 
+/* MODAL */
 .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.78); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
 .modal-overlay.open { display: flex; }
-.modal { background: var(--navy-mid); border: 0.5px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 28px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
+.modal { background: var(--navy-mid); border: 0.5px solid var(--border-mid); border-radius: var(--radius); padding: 28px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
 .modal h3 { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--cream); margin-bottom: 6px; }
 .modal-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.5; }
 .form-group { margin-bottom: 16px; }
@@ -64,13 +71,13 @@ body::before { content: ''; position: fixed; inset: 0; background: radial-gradie
 .form-input:focus { border-color: var(--teal); }
 .form-input::placeholder { color: var(--text-dim); }
 .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
-
-.list-check-group { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
-.list-check-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: rgba(255,255,255,0.03); border: 0.5px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: background 0.15s; }
+.list-check-group { display: flex; flex-direction: column; gap: 8px; }
+.list-check-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: rgba(255,255,255,0.03); border: 0.5px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; }
 .list-check-row:hover { background: var(--card-hover); }
 .list-check-row input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--teal); cursor: pointer; flex-shrink: 0; }
 .list-check-label { font-size: 14px; color: var(--text-main); }
 
+/* BOAT HEADER */
 .back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); cursor: pointer; margin-bottom: 28px; transition: color 0.15s; background: none; border: none; padding: 0; font-family: 'DM Sans', sans-serif; }
 .back-btn:hover { color: var(--teal); }
 .boat-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; }
@@ -78,16 +85,17 @@ body::before { content: ''; position: fixed; inset: 0; background: radial-gradie
 .boat-header-left p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
 .boat-header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
+/* TABS */
 .tabs-row { display: flex; gap: 4px; margin-bottom: 28px; border-bottom: 0.5px solid var(--border); overflow-x: auto; }
 .tab-btn { padding: 10px 20px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--text-muted); background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -0.5px; white-space: nowrap; transition: all 0.15s; }
 .tab-btn:hover { color: var(--text-main); }
 .tab-btn.active { color: var(--teal); border-bottom-color: var(--teal); }
 
+/* CHECKLIST */
 .progress-wrap { flex: 1; min-width: 200px; }
 .progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
 .progress-track { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
 .progress-fill { height: 100%; background: var(--teal); border-radius: 2px; transition: width 0.4s cubic-bezier(0.4,0,0.2,1); }
-
 .section-block { margin-bottom: 20px; }
 .section-head { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: rgba(255,255,255,0.03); border: 0.5px solid var(--border); border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
 .section-head-name { font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
@@ -118,64 +126,138 @@ body::before { content: ''; position: fixed; inset: 0; background: radial-gradie
 .note-textarea::placeholder { color: var(--text-dim); }
 .note-save-row { display: flex; gap: 8px; margin-top: 6px; }
 .hidden-file { display: none; }
-
-.submit-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy-mid); border-top: 0.5px solid var(--border); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; z-index: 50; backdrop-filter: blur(10px); }
-.submit-info { font-size: 13px; color: var(--text-muted); }
-.submit-info strong { color: var(--text-main); }
-
-.history-empty { text-align: center; padding: 60px 20px; color: var(--text-muted); }
-.history-list { display: flex; flex-direction: column; gap: 12px; }
-.history-card { background: var(--card-bg); border: 0.5px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-.history-card-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; cursor: pointer; transition: background 0.15s; }
-.history-card-header:hover { background: var(--card-hover); }
-.history-card-title { font-size: 14px; font-weight: 500; color: var(--text-main); }
-.history-card-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-.history-badge { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; }
-.badge-full { background: rgba(15,180,160,0.15); color: var(--teal); }
-.badge-partial { background: rgba(201,168,76,0.15); color: var(--gold); }
-.history-items { border-top: 0.5px solid var(--border); padding: 14px 18px; display: none; }
-.history-items.open { display: block; }
-.history-item-row { padding: 6px 0; border-bottom: 0.5px solid rgba(255,255,255,0.04); }
-.history-item-row:last-child { border-bottom: none; }
-.history-item-top { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; }
-.history-item-check { color: var(--teal); flex-shrink: 0; }
-.history-item-cross { color: var(--text-dim); flex-shrink: 0; }
-.history-item-note { font-size: 11px; color: var(--gold); padding-left: 20px; margin-top: 3px; }
-.history-item-media { display: flex; flex-wrap: wrap; gap: 6px; padding-left: 20px; margin-top: 6px; }
-.history-thumb { width: 56px; height: 56px; border-radius: 6px; object-fit: cover; border: 0.5px solid var(--border); cursor: pointer; }
-.history-video-link { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--teal); text-decoration: none; padding: 4px 8px; border: 0.5px solid rgba(15,180,160,0.3); border-radius: 4px; }
-
 .inline-input { background: transparent; border: none; border-bottom: 0.5px solid var(--text-dim); color: var(--text-main); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 2px 4px; outline: none; flex: 1; transition: border-color 0.15s; }
 .inline-input:focus { border-bottom-color: var(--teal); }
 .checklist-name-row { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 0.5px solid var(--border); }
 .checklist-name-row:last-child { border-bottom: none; }
-.edit-hint { font-size: 12px; color: var(--text-dim); margin-bottom: 20px; padding: 10px 14px; background: rgba(15,180,160,0.05); border-left: 2px solid var(--teal); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.edit-hint { font-size: 12px; color: var(--text-dim); margin-bottom: 20px; padding: 10px 14px; background: var(--teal-pale); border-left: 2px solid var(--teal); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
 
-.toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--navy-light); border: 0.5px solid rgba(255,255,255,0.12); border-radius: var(--radius-sm); padding: 10px 20px; font-size: 13px; color: var(--text-main); opacity: 0; transition: all 0.3s; z-index: 200; white-space: nowrap; pointer-events: none; }
+/* SUBMIT BAR */
+.submit-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy-mid); border-top: 0.5px solid var(--border); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; z-index: 50; backdrop-filter: blur(10px); }
+.submit-info { font-size: 13px; color: var(--text-muted); }
+.submit-info strong { color: var(--text-main); }
+
+/* =============================================
+   HISTORY VIEW — rich inspection report style
+   ============================================= */
+.history-view-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
+}
+.history-filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.filter-tab { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; cursor: pointer; border: 0.5px solid var(--border); background: transparent; color: var(--text-muted); transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
+.filter-tab:hover { background: var(--card-hover); color: var(--text-main); }
+.filter-tab.active { background: var(--teal-pale); color: var(--teal); border-color: rgba(15,180,160,0.3); }
+
+.history-timeline { display: flex; flex-direction: column; gap: 16px; }
+.history-entry { background: var(--card-bg); border: 0.5px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: border-color 0.2s; }
+.history-entry:hover { border-color: var(--border-mid); }
+.history-entry.complete { border-left: 3px solid var(--teal); }
+.history-entry.partial  { border-left: 3px solid var(--gold); }
+
+/* Entry header — always visible */
+.entry-header { display: flex; align-items: center; gap: 14px; padding: 16px 20px; cursor: pointer; transition: background 0.15s; }
+.entry-header:hover { background: var(--card-hover); }
+.entry-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+.entry-icon.complete { background: var(--green-pale); }
+.entry-icon.partial  { background: var(--gold-pale); }
+.entry-meta { flex: 1; min-width: 0; }
+.entry-title { font-size: 15px; font-weight: 500; color: var(--cream); }
+.entry-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.entry-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.entry-score { text-align: right; }
+.entry-score-num { font-size: 20px; font-weight: 500; color: var(--text-main); }
+.entry-score-lbl { font-size: 10px; color: var(--text-muted); }
+.entry-badge { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+.badge-complete { background: var(--green-pale); color: var(--teal); }
+.badge-partial  { background: var(--gold-pale); color: var(--gold); }
+.entry-chevron { color: var(--text-dim); font-size: 14px; transition: transform 0.2s; }
+.entry-chevron.open { transform: rotate(90deg); }
+
+/* Progress mini bar in entry header */
+.entry-progress { height: 3px; background: rgba(255,255,255,0.06); margin: 0; }
+.entry-progress-fill { height: 100%; border-radius: 0; transition: width 0.4s; }
+.entry-progress-fill.complete { background: var(--teal); }
+.entry-progress-fill.partial  { background: var(--gold); }
+
+/* Entry body — expandable report */
+.entry-body { display: none; border-top: 0.5px solid var(--border); }
+.entry-body.open { display: block; }
+
+/* Section group inside report */
+.report-section { border-bottom: 0.5px solid var(--border); }
+.report-section:last-child { border-bottom: none; }
+.report-section-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: rgba(255,255,255,0.025); }
+.report-section-name { font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
+.report-section-score { font-size: 11px; color: var(--text-dim); }
+
+/* Individual item row in report */
+.report-item { display: flex; align-items: flex-start; gap: 12px; padding: 11px 20px; border-top: 0.5px solid rgba(255,255,255,0.04); transition: background 0.1s; }
+.report-item:hover { background: var(--card-hover); }
+.report-item:first-child { border-top: none; }
+.report-status { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; flex-shrink: 0; margin-top: 1px; }
+.report-status.pass { background: var(--green-pale); color: var(--teal); }
+.report-status.fail { background: var(--danger-pale); color: var(--danger); }
+.report-item-body { flex: 1; min-width: 0; }
+.report-item-label { font-size: 13px; color: var(--text-main); line-height: 1.4; }
+.report-item-label.failed { color: var(--text-muted); text-decoration: line-through; }
+.report-item-note { display: flex; align-items: flex-start; gap: 5px; font-size: 12px; color: var(--gold); margin-top: 5px; line-height: 1.4; padding: 5px 8px; background: var(--gold-pale); border-radius: var(--radius-xs); }
+.report-item-media { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.report-photo { width: 80px; height: 80px; border-radius: var(--radius-xs); object-fit: cover; cursor: pointer; border: 0.5px solid var(--border); transition: transform 0.15s, border-color 0.15s; }
+.report-photo:hover { transform: scale(1.04); border-color: var(--teal); }
+.report-video-link { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: rgba(15,180,160,0.08); border: 0.5px solid rgba(15,180,160,0.25); border-radius: var(--radius-xs); font-size: 12px; color: var(--teal); text-decoration: none; transition: background 0.15s; }
+.report-video-link:hover { background: rgba(15,180,160,0.15); }
+
+/* Summary bar at bottom of report */
+.report-summary { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; background: rgba(255,255,255,0.025); flex-wrap: wrap; gap: 8px; }
+.report-summary-text { font-size: 13px; font-weight: 500; }
+.report-summary-text.complete { color: var(--teal); }
+.report-summary-text.partial  { color: var(--gold); }
+.report-summary-stats { display: flex; gap: 16px; }
+.report-stat { text-align: center; }
+.report-stat-num { font-size: 16px; font-weight: 500; color: var(--text-main); }
+.report-stat-lbl { font-size: 10px; color: var(--text-muted); }
+
+/* Photo count badge */
+.photo-count-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+/* Empty state */
+.empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+.empty-state-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.4; }
+.empty-state-title { font-size: 15px; color: var(--text-main); margin-bottom: 6px; }
+.empty-state-sub { font-size: 13px; }
+
+/* TOAST */
+.toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--navy-light); border: 0.5px solid var(--border-mid); border-radius: var(--radius-sm); padding: 10px 20px; font-size: 13px; color: var(--text-main); opacity: 0; transition: all 0.3s; z-index: 200; white-space: nowrap; pointer-events: none; }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .toast.success { border-color: rgba(15,180,160,0.4); }
-.toast.error { border-color: rgba(224,85,85,0.4); }
+.toast.error   { border-color: rgba(224,85,85,0.4); }
 
+/* LOADING */
 .loading { display: flex; align-items: center; justify-content: center; padding: 40px; color: var(--text-muted); font-size: 13px; gap: 10px; }
 .spinner { width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--teal); border-radius: 50%; animation: spin 0.7s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-.lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.93); z-index: 300; align-items: center; justify-content: center; }
+/* LIGHTBOX */
+.lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.94); z-index: 300; align-items: center; justify-content: center; flex-direction: column; gap: 12px; }
 .lightbox.open { display: flex; }
-.lightbox img { max-width: 92vw; max-height: 88vh; border-radius: var(--radius-sm); }
+.lightbox img { max-width: 92vw; max-height: 82vh; border-radius: var(--radius-sm); }
 .lightbox-close { position: absolute; top: 20px; right: 24px; font-size: 32px; color: var(--text-muted); cursor: pointer; background: none; border: none; line-height: 1; }
+.lightbox-caption { font-size: 13px; color: var(--text-muted); }
 
 @media (max-width: 600px) {
   .header { flex-direction: column; align-items: flex-start; gap: 12px; }
   .boat-header { flex-direction: column; align-items: flex-start; }
   .submit-bar { flex-direction: column; align-items: stretch; text-align: center; }
+  .entry-header { gap: 10px; }
+  .entry-score-num { font-size: 16px; }
 }
 </style>
 </head>
 <body>
 <div class="app">
   <header class="header">
-    <div class="logo">
+    <div>
       <span class="logo-title">Fleet Inspection</span>
       <span class="logo-sub">KOS Yachts</span>
     </div>
@@ -211,12 +293,22 @@ body::before { content: ''; position: fixed; inset: 0; background: radial-gradie
 
   <!-- HISTORY VIEW -->
   <div class="view" id="view-history">
-    <button class="back-btn" onclick="showBoatDetail(currentBoat)">
+    <button class="back-btn" onclick="returnFromHistory()">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Back to inspection
     </button>
-    <p class="section-label" id="history-label"></p>
-    <div id="history-content"><div class="loading"><div class="spinner"></div> Loading...</div></div>
+
+    <div class="history-view-header">
+      <div>
+        <p class="section-label" style="margin-bottom:4px" id="history-boat-label"></p>
+        <div id="history-filter-tabs" class="history-filter-tabs"></div>
+      </div>
+      <div id="history-summary-chips"></div>
+    </div>
+
+    <div id="history-content">
+      <div class="loading"><div class="spinner"></div> Loading inspections...</div>
+    </div>
   </div>
 
   <!-- MANAGE VIEW -->
@@ -273,8 +365,9 @@ body::before { content: ''; position: fixed; inset: 0; background: radial-gradie
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <button class="lightbox-close">×</button>
   <img id="lightbox-img" src="" alt="Inspection photo" />
+  <div class="lightbox-caption" id="lightbox-caption"></div>
 </div>
 
 <!-- TOAST -->
@@ -282,22 +375,25 @@ body::before { content: ''; position: fixed; inset: 0; background: radial-gradie
 
 <script>
 // ============================================================
-// REPLACE THIS WITH YOUR APPS SCRIPT URL
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzXcSDuWo92sGq4WWUKonFt4uBFgZyJuH0NgYPPL54sSOcYP8nxIlZ0FckquQ1d_YKR/exec';
+const SCRIPT_URL = 'https://script.google.com/home/projects/1zKMzez7XP1kDQVf7w0m5Y-75Q-VuB8E4Hf7pV3-LTtQYYsKWFvUh60rm/edit';
 // ============================================================
 
 let fleetData = {};
 let currentBoat = null;
 let currentList = null;
-let checkState = {};
+let checkState  = {};
 let pendingApply = null;
+
+// All history data cached per boat
+let historyCache = {}; // { boatName: { listName: [...entries] } }
+let currentHistoryList = null;
 
 function itemKey(list, si, ii) { return `${list}||${si}||${ii}`; }
 
 function showToast(msg, type='') {
   const t = document.getElementById('toast');
   t.textContent = msg; t.className = 'toast show ' + type;
-  setTimeout(() => { t.className = 'toast'; }, 3200);
+  setTimeout(() => t.className = 'toast', 3200);
 }
 
 function showView(name) {
@@ -306,7 +402,7 @@ function showView(name) {
   document.getElementById('submit-bar').style.display = (name === 'boat') ? 'flex' : 'none';
 }
 
-function openModal(id) { document.getElementById(id).classList.add('open'); }
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
@@ -317,8 +413,7 @@ async function api(action, payload={}) {
 }
 async function apiPost(action, payload={}) {
   const res = await fetch(SCRIPT_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain' },
+    method: 'POST', headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify({ action, ...payload })
   });
   return res.json();
@@ -332,7 +427,7 @@ async function loadFleet() {
     renderFleet();
   } catch(e) {
     document.getElementById('boats-grid').innerHTML =
-      `<div style="color:var(--danger);font-size:13px;padding:20px 0">Could not connect. Check your SCRIPT_URL in index.html.</div>`;
+      `<div style="color:var(--danger);font-size:13px;padding:20px 0">Could not connect. Check your SCRIPT_URL.</div>`;
   }
 }
 
@@ -357,7 +452,7 @@ function renderFleet() {
 }
 
 async function addBoat() {
-  const name = document.getElementById('new-boat-name').value.trim();
+  const name  = document.getElementById('new-boat-name').value.trim();
   const notes = document.getElementById('new-boat-notes').value.trim();
   if (!name) return;
   closeModal('modal-add-boat');
@@ -370,7 +465,7 @@ async function addBoat() {
 }
 
 async function confirmRemoveBoat() {
-  if (!confirm(`Remove "${currentBoat}" and ALL its data? This cannot be undone.`)) return;
+  if (!confirm(`Remove "${currentBoat}" and ALL its data?`)) return;
   await apiPost('removeBoat', { name: currentBoat });
   await loadFleet();
   showView('fleet');
@@ -417,11 +512,11 @@ function renderChecklist() {
       </div>
       <div class="section-items">`;
     sec.items.forEach((item,ii) => {
-      const k = itemKey(currentList,si,ii);
+      const k  = itemKey(currentList,si,ii);
       const st = checkState[k]||{};
       const attachments = st.attachments||[];
       let thumbs = attachments.map(a => a.type==='image'
-        ? `<div class="attachment-thumb" onclick="openLightbox('${esc(a.url)}')"><img src="${esc(a.url)}" loading="lazy"/></div>`
+        ? `<div class="attachment-thumb" onclick="openLightbox('${esc(a.url)}','')"><img src="${esc(a.url)}" loading="lazy"/></div>`
         : `<a class="attachment-thumb" href="${esc(a.url)}" target="_blank" rel="noopener"><div class="video-badge">▶</div></a>`
       ).join('');
       if (st.uploading) thumbs += `<div class="attachment-uploading"><div class="spinner" style="width:14px;height:14px;border-width:1.5px"></div><span>Uploading</span></div>`;
@@ -432,14 +527,14 @@ function renderChecklist() {
         </div>
         <div class="item-content">
           <div class="item-text">${esc(item)}</div>
-          ${st.note&&!st.editingNote ? `<div class="item-note-display">📝 ${esc(st.note)}</div>` : ''}
-          ${attachments.length||st.uploading ? `<div class="item-attachments">${thumbs}</div>` : ''}
-          ${st.editingNote ? `
+          ${st.note&&!st.editingNote?`<div class="item-note-display">📝 ${esc(st.note)}</div>`:''}
+          ${attachments.length||st.uploading?`<div class="item-attachments">${thumbs}</div>`:''}
+          ${st.editingNote?`
             <textarea class="note-textarea" id="note-ta-${si}-${ii}" placeholder="Add a note...">${esc(st.note||'')}</textarea>
             <div class="note-save-row">
-              <button class="btn btn-xs" style="background:rgba(201,168,76,0.15);color:var(--gold);border:none" onclick="saveNote(${si},${ii})">Save note</button>
+              <button class="btn btn-xs" style="background:var(--gold-pale);color:var(--gold);border:none" onclick="saveNote(${si},${ii})">Save note</button>
               <button class="btn btn-xs btn-ghost" onclick="cancelNote(${si},${ii})">Cancel</button>
-            </div>` : ''}
+            </div>`:''}
           <div class="item-actions-row">
             <button class="action-link gold" onclick="toggleNote(${si},${ii})">${st.editingNote?'':(st.note?'✏ note':'+ note')}</button>
             <button class="action-link" onclick="triggerUpload(${si},${ii})">
@@ -453,7 +548,6 @@ function renderChecklist() {
     });
     html += `</div></div>`;
   });
-
   document.getElementById('boat-tab-content').innerHTML = html;
 }
 
@@ -463,57 +557,41 @@ function toggleCheck(si,ii) {
   checkState[k].checked=!checkState[k].checked;
   renderChecklist(); updateSubmitBar();
 }
-
 function toggleNote(si,ii) {
   const k=itemKey(currentList,si,ii);
   if(!checkState[k]) checkState[k]={};
-  checkState[k].editingNote=true;
-  renderChecklist();
+  checkState[k].editingNote=true; renderChecklist();
   setTimeout(()=>{ const ta=document.getElementById(`note-ta-${si}-${ii}`); if(ta){ta.focus();ta.setSelectionRange(ta.value.length,ta.value.length);} },30);
 }
 function saveNote(si,ii) {
   const k=itemKey(currentList,si,ii);
   const ta=document.getElementById(`note-ta-${si}-${ii}`);
   if(!checkState[k]) checkState[k]={};
-  checkState[k].note=ta?ta.value.trim():'';
-  checkState[k].editingNote=false;
-  renderChecklist();
+  checkState[k].note=ta?ta.value.trim():''; checkState[k].editingNote=false; renderChecklist();
 }
-function cancelNote(si,ii) {
-  const k=itemKey(currentList,si,ii);
-  if(checkState[k]) checkState[k].editingNote=false;
-  renderChecklist();
-}
+function cancelNote(si,ii) { const k=itemKey(currentList,si,ii); if(checkState[k]) checkState[k].editingNote=false; renderChecklist(); }
 
-// ---- UPLOAD ----
 function triggerUpload(si,ii) { document.getElementById(`file-${si}-${ii}`).click(); }
-
 async function handleUpload(si,ii,input) {
   const file=input.files[0]; if(!file) return;
   const k=itemKey(currentList,si,ii);
   if(!checkState[k]) checkState[k]={};
-  checkState[k].uploading=true; renderChecklist();
-  showToast('Uploading…');
+  checkState[k].uploading=true; renderChecklist(); showToast('Uploading…');
   try {
     const base64=await fileToBase64(file);
     const result=await apiPost('uploadFile',{boat:currentBoat,list:currentList,fileName:file.name,mimeType:file.type,data:base64});
-    if(result.url) {
+    if(result.url){
       if(!checkState[k].attachments) checkState[k].attachments=[];
       checkState[k].attachments.push({url:result.url,type:file.type.startsWith('video/')?'video':'image'});
       showToast('Uploaded','success');
-    } else { showToast('Upload failed — check Drive permissions','error'); }
+    } else { showToast('Upload failed','error'); }
   } catch(e) { showToast('Upload error','error'); }
   checkState[k].uploading=false; renderChecklist(); input.value='';
 }
-
 function fileToBase64(file) {
   return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result.split(',')[1]); r.onerror=rej; r.readAsDataURL(file); });
 }
 
-function openLightbox(url) { document.getElementById('lightbox-img').src=url; document.getElementById('lightbox').classList.add('open'); }
-function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
-
-// ---- SUBMIT ----
 function updateSubmitBar() {
   if(!currentBoat){document.getElementById('submit-bar').style.display='none';return;}
   document.getElementById('submit-bar').style.display='flex';
@@ -532,57 +610,197 @@ async function submitInspection() {
   showToast('Saving…');
   try {
     await apiPost('submitInspection',{boat:currentBoat,list:currentList,items:JSON.stringify(items),done,total:items.length,date:new Date().toLocaleString()});
+    // Invalidate cache for this boat/list so history reloads fresh
+    if(historyCache[currentBoat]) delete historyCache[currentBoat][currentList];
     checkState={}; renderChecklist(); updateSubmitBar();
     showToast(`Saved — ${done}/${items.length} complete`,'success');
   } catch(e) { showToast('Error saving','error'); }
 }
 
-// ---- HISTORY ----
+// ---- LIGHTBOX ----
+function openLightbox(url, caption) {
+  document.getElementById('lightbox-img').src=url;
+  document.getElementById('lightbox-caption').textContent=caption||'';
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+
+// ---- HISTORY VIEW ----
+function returnFromHistory() { showBoatDetail(currentBoat); }
+
 async function showHistory() {
   showView('history');
   document.getElementById('submit-bar').style.display='none';
-  document.getElementById('history-label').textContent=`${currentBoat} — ${currentList} history`;
-  document.getElementById('history-content').innerHTML='<div class="loading"><div class="spinner"></div> Loading history...</div>';
+  document.getElementById('history-boat-label').textContent=currentBoat;
+
+  // Load all lists for this boat
+  const lists = Object.keys(fleetData[currentBoat].checklists||{});
+  currentHistoryList = currentList; // default to currently active list
+
+  // Render filter tabs
+  renderHistoryFilterTabs(lists);
+
+  // Load history for current list
+  await loadAndRenderHistory(currentHistoryList);
+}
+
+function renderHistoryFilterTabs(lists) {
+  document.getElementById('history-filter-tabs').innerHTML = lists.map(l =>
+    `<button class="filter-tab ${l===currentHistoryList?'active':''}" onclick="switchHistoryList('${esc(l)}')">${esc(l)}</button>`
+  ).join('');
+}
+
+async function switchHistoryList(list) {
+  currentHistoryList = list;
+  renderHistoryFilterTabs(Object.keys(fleetData[currentBoat].checklists||{}));
+  await loadAndRenderHistory(list);
+}
+
+async function loadAndRenderHistory(list) {
+  document.getElementById('history-content').innerHTML='<div class="loading"><div class="spinner"></div> Loading inspections...</div>';
+
+  // Use cache if available
+  if(historyCache[currentBoat]?.[list]) {
+    renderHistoryEntries(historyCache[currentBoat][list]);
+    return;
+  }
+
   try {
-    const data=await api('getHistory',{boat:currentBoat,list:currentList});
-    renderHistory(data.history||[]);
-  } catch(e) { document.getElementById('history-content').innerHTML='<div class="history-empty">Could not load history.</div>'; }
+    const data = await api('getHistory',{boat:currentBoat,list});
+    if(!historyCache[currentBoat]) historyCache[currentBoat]={};
+    historyCache[currentBoat][list] = data.history||[];
+    renderHistoryEntries(historyCache[currentBoat][list]);
+  } catch(e) {
+    document.getElementById('history-content').innerHTML='<div class="empty-state"><div class="empty-state-icon">⚠</div><div class="empty-state-title">Could not load history</div></div>';
+  }
 }
 
-function renderHistory(history) {
-  if(!history.length){ document.getElementById('history-content').innerHTML='<div class="history-empty">No inspections submitted yet for this checklist.</div>'; return; }
-  const html=history.slice().reverse().map((h,idx)=>{
-    const pct=h.total?Math.round(h.done/h.total*100):0;
-    const full=pct===100;
-    const itemRows=(h.items||[]).map(it=>{
-      const mediaUrls=(it.attachments||'').split(',').filter(Boolean);
-      const mediaHtml=mediaUrls.map(url=>{
-        const isVid=url.match(/\.(mp4|mov|avi|webm)/i)||(it.type==='video');
-        return isVid
-          ? `<a class="history-video-link" href="${esc(url)}" target="_blank" rel="noopener">▶ Video</a>`
-          : `<img class="history-thumb" src="${esc(url)}" onclick="openLightbox('${esc(url)}')" loading="lazy"/>`;
-      }).join('');
-      return `<div class="history-item-row">
-        <div class="history-item-top">
-          <span class="${it.checked?'history-item-check':'history-item-cross'}">${it.checked?'✓':'○'}</span>
-          <span style="color:${it.checked?'var(--text-main)':'var(--text-dim)'}">${esc(it.section)} — ${esc(it.item)}</span>
-        </div>
-        ${it.note?`<div class="history-item-note">📝 ${esc(it.note)}</div>`:''}
-        ${mediaHtml?`<div class="history-item-media">${mediaHtml}</div>`:''}
+function renderHistoryEntries(history) {
+  if(!history.length) {
+    document.getElementById('history-content').innerHTML=`
+      <div class="empty-state">
+        <div class="empty-state-icon">📋</div>
+        <div class="empty-state-title">No inspections yet</div>
+        <div class="empty-state-sub">Submit your first inspection to see it here</div>
       </div>`;
-    }).join('');
-    return `<div class="history-card">
-      <div class="history-card-header" onclick="toggleHistoryCard(${idx})">
-        <div><div class="history-card-title">${esc(h.date)}</div><div class="history-card-meta">${h.done}/${h.total} complete (${pct}%)</div></div>
-        <span class="history-badge ${full?'badge-full':'badge-partial'}">${full?'Complete':'Partial'}</span>
-      </div>
-      <div class="history-items" id="hist-items-${idx}">${itemRows}</div>
+    return;
+  }
+
+  // Summary chips
+  const total     = history.length;
+  const complete  = history.filter(h=>h.total&&h.done===h.total).length;
+  const photoCount= history.reduce((acc,h)=>acc+(h.items||[]).reduce((a,it)=>a+((it.attachments||'').split(',').filter(Boolean).length),0),0);
+  document.getElementById('history-summary-chips').innerHTML=`
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <span style="font-size:12px;color:var(--text-muted)">${total} inspection${total===1?'':'s'}</span>
+      <span style="font-size:12px;color:var(--teal)">✓ ${complete} complete</span>
+      ${photoCount?`<span style="font-size:12px;color:var(--text-muted)">📷 ${photoCount} photo${photoCount===1?'':'s'}</span>`:''}
     </div>`;
-  }).join('');
-  document.getElementById('history-content').innerHTML=`<div class="history-list">${html}</div>`;
+
+  const entries = history.slice().reverse().map((h,idx) => buildEntryHTML(h, idx)).join('');
+  document.getElementById('history-content').innerHTML=`<div class="history-timeline">${entries}</div>`;
 }
 
-function toggleHistoryCard(idx) { document.getElementById(`hist-items-${idx}`).classList.toggle('open'); }
+function buildEntryHTML(h, idx) {
+  const pct      = h.total ? Math.round(h.done/h.total*100) : 0;
+  const isComplete = pct === 100;
+  const cls      = isComplete ? 'complete' : 'partial';
+  const icon     = isComplete ? '✓' : '◑';
+  const items    = h.items||[];
+
+  // Group items by section
+  const sections = {};
+  const secOrder = [];
+  items.forEach(it => {
+    if(!sections[it.section]){sections[it.section]=[];secOrder.push(it.section);}
+    sections[it.section].push(it);
+  });
+
+  // Count photos across all items
+  const totalPhotos = items.reduce((acc,it)=>acc+((it.attachments||'').split(',').filter(Boolean).length),0);
+
+  // Build section rows
+  let sectionsHTML = '';
+  secOrder.forEach(secName => {
+    const secItems = sections[secName];
+    const secDone  = secItems.filter(it=>it.checked).length;
+    sectionsHTML += `<div class="report-section">
+      <div class="report-section-header">
+        <span class="report-section-name">${esc(secName)}</span>
+        <span class="report-section-score">${secDone}/${secItems.length}</span>
+      </div>`;
+    secItems.forEach(it => {
+      const mediaUrls = (it.attachments||'').split(',').filter(Boolean);
+      const mediaHTML = mediaUrls.map(url => {
+        const isVideo = url.includes('/file/d/');
+        return isVideo
+          ? `<a class="report-video-link" href="${esc(url)}" target="_blank" rel="noopener">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polygon points="3,1 11,6 3,11" fill="currentColor"/></svg>
+              View video
+            </a>`
+          : `<img class="report-photo" src="${esc(url)}" loading="lazy"
+              onclick="openLightbox('${esc(url)}','${esc(it.item)}')"
+              title="${esc(it.item)}" />`;
+      }).join('');
+      sectionsHTML += `<div class="report-item">
+        <div class="report-status ${it.checked?'pass':'fail'}">${it.checked?'✓':'✗'}</div>
+        <div class="report-item-body">
+          <div class="report-item-label ${it.checked?'':'failed'}">${esc(it.item)}</div>
+          ${it.note?`<div class="report-item-note">📝 ${esc(it.note)}</div>`:''}
+          ${mediaHTML?`<div class="report-item-media">${mediaHTML}</div>`:''}
+        </div>
+      </div>`;
+    });
+    sectionsHTML += `</div>`;
+  });
+
+  // Summary footer
+  const summaryText = isComplete
+    ? `✅ All ${h.total} items passed`
+    : `⚠️ ${h.total-h.done} item${h.total-h.done===1?'':'s'} incomplete`;
+
+  return `<div class="history-entry ${cls}" id="entry-${idx}">
+    <div class="entry-header" onclick="toggleEntry(${idx})">
+      <div class="entry-icon ${cls}">${icon}</div>
+      <div class="entry-meta">
+        <div class="entry-title">${esc(h.date)}</div>
+        <div class="entry-subtitle">
+          ${esc(currentHistoryList)}
+          ${totalPhotos?` &nbsp;·&nbsp; 📷 ${totalPhotos} photo${totalPhotos===1?'':'s'}`:''}
+        </div>
+      </div>
+      <div class="entry-right">
+        <div class="entry-score">
+          <div class="entry-score-num">${pct}%</div>
+          <div class="entry-score-lbl">${h.done}/${h.total} done</div>
+        </div>
+        <span class="entry-badge ${isComplete?'badge-complete':'badge-partial'}">${isComplete?'Complete':'Partial'}</span>
+        <span class="entry-chevron" id="chevron-${idx}">›</span>
+      </div>
+    </div>
+    <div class="entry-progress">
+      <div class="entry-progress-fill ${cls}" style="width:${pct}%"></div>
+    </div>
+    <div class="entry-body" id="body-${idx}">
+      ${sectionsHTML}
+      <div class="report-summary">
+        <span class="report-summary-text ${cls}">${summaryText}</span>
+        <div class="report-summary-stats">
+          <div class="report-stat"><div class="report-stat-num">${h.done}</div><div class="report-stat-lbl">Passed</div></div>
+          <div class="report-stat"><div class="report-stat-num">${h.total-h.done}</div><div class="report-stat-lbl">Missed</div></div>
+          ${totalPhotos?`<div class="report-stat"><div class="report-stat-num">${totalPhotos}</div><div class="report-stat-lbl">Photos</div></div>`:''}
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function toggleEntry(idx) {
+  const body    = document.getElementById(`body-${idx}`);
+  const chevron = document.getElementById(`chevron-${idx}`);
+  const isOpen  = body.classList.toggle('open');
+  chevron.classList.toggle('open', isOpen);
+}
 
 // ---- MANAGE ----
 function showManage() {
@@ -595,8 +813,7 @@ function showManage() {
 function renderManage() {
   const b=fleetData[currentBoat];
   const lists=Object.keys(b.checklists||{});
-  let html=`<div class="edit-hint">Click any name to rename it inline. When you add, rename, or remove an item or section, you'll choose which checklists to apply the change to.</div>`;
-
+  let html=`<div class="edit-hint">Click any name to rename it. When you add, rename or remove anything, you'll choose which checklists to apply the change to.</div>`;
   lists.forEach(listName=>{
     const sections=b.checklists[listName];
     html+=`<div style="margin-bottom:32px">
@@ -628,12 +845,10 @@ function renderManage() {
       <button class="btn btn-ghost btn-sm" onclick="manageAddSection('${esc(listName)}')">Add section</button>
     </div></div>`;
   });
-
   html+=`<div style="display:flex;gap:8px;padding-top:20px;border-top:0.5px solid var(--border)">
     <input class="form-input" id="new-list-name" placeholder="New checklist name (e.g. Generator check)..." style="flex:1;font-size:13px;padding:8px 12px" onkeydown="if(event.key==='Enter')manageAddList()" />
     <button class="btn btn-primary btn-sm" onclick="manageAddList()">Add checklist</button>
   </div>`;
-
   document.getElementById('manage-content').innerHTML=html;
 }
 
@@ -649,7 +864,6 @@ function openApplyModal(description, applyFn) {
   pendingApply=applyFn;
   openModal('modal-apply-lists');
 }
-
 function confirmApplyLists() {
   const selected=Array.from(document.querySelectorAll('#apply-list-checks input:checked')).map(c=>c.value);
   closeModal('modal-apply-lists');
@@ -660,76 +874,14 @@ function confirmApplyLists() {
 async function persist() {
   await apiPost('updateBoatChecklists',{name:currentBoat,checklists:JSON.stringify(fleetData[currentBoat].checklists)});
 }
-
-function manageSectionRename(list,si,val) {
-  const old=fleetData[currentBoat].checklists[list][si].section;
-  if(val===old||!val.trim()) return;
-  openApplyModal(`Rename section "${old}" → "${val}" on:`, selectedLists=>{
-    selectedLists.forEach(l=>{ if(fleetData[currentBoat].checklists[l]?.[si]) fleetData[currentBoat].checklists[l][si].section=val; });
-    persist(); renderManage(); showToast('Section renamed','success');
-  });
-}
-
-function manageItemRename(list,si,ii,val) {
-  const old=fleetData[currentBoat].checklists[list][si].items[ii];
-  if(val===old||!val.trim()) return;
-  openApplyModal(`Rename "${old}" → "${val}" on:`, selectedLists=>{
-    selectedLists.forEach(l=>{ const items=fleetData[currentBoat].checklists[l]?.[si]?.items; if(items&&items[ii]!==undefined) items[ii]=val; });
-    persist(); renderManage(); showToast('Item renamed','success');
-  });
-}
-
-function manageRemoveItem(list,si,ii) {
-  const item=fleetData[currentBoat].checklists[list][si].items[ii];
-  openApplyModal(`Remove "${item}" from:`, selectedLists=>{
-    selectedLists.forEach(l=>{ const items=fleetData[currentBoat].checklists[l]?.[si]?.items; if(items) items.splice(ii,1); });
-    persist(); renderManage(); showToast('Item removed');
-  });
-}
-
-function manageRemoveSection(list,si) {
-  if(!confirm('Remove this section?')) return;
-  const name=fleetData[currentBoat].checklists[list][si].section;
-  openApplyModal(`Remove section "${name}" from:`, selectedLists=>{
-    selectedLists.forEach(l=>{ if(fleetData[currentBoat].checklists[l]?.[si]) fleetData[currentBoat].checklists[l].splice(si,1); });
-    persist(); renderManage(); showToast('Section removed');
-  });
-}
-
-function manageAddItem(list,si) {
-  const el=document.getElementById(`ni-${list.replace(/\W/g,'_')}-${si}`);
-  if(!el||!el.value.trim()) return;
-  const val=el.value.trim(); el.value='';
-  openApplyModal(`Add "${val}" to:`, selectedLists=>{
-    selectedLists.forEach(l=>{ if(fleetData[currentBoat].checklists[l]?.[si]) fleetData[currentBoat].checklists[l][si].items.push(val); });
-    persist(); renderManage(); showToast('Item added','success');
-  });
-}
-
-function manageAddSection(list) {
-  const el=document.getElementById(`ns-${list.replace(/\W/g,'_')}`);
-  if(!el||!el.value.trim()) return;
-  const val=el.value.trim(); el.value='';
-  openApplyModal(`Add section "${val}" to:`, selectedLists=>{
-    selectedLists.forEach(l=>{ if(fleetData[currentBoat].checklists[l]) fleetData[currentBoat].checklists[l].push({section:val,items:[]}); });
-    persist(); renderManage(); showToast('Section added','success');
-  });
-}
-
-function manageAddList() {
-  const el=document.getElementById('new-list-name');
-  if(!el||!el.value.trim()) return;
-  const name=el.value.trim();
-  if(fleetData[currentBoat].checklists[name]){showToast('Already exists');return;}
-  fleetData[currentBoat].checklists[name]=[];
-  el.value=''; persist(); renderManage(); showToast('Checklist added','success');
-}
-
-function removeList(list) {
-  if(!confirm(`Remove the "${list}" checklist?`)) return;
-  delete fleetData[currentBoat].checklists[list];
-  persist(); renderManage(); showToast('Checklist removed');
-}
+function manageSectionRename(list,si,val){const old=fleetData[currentBoat].checklists[list][si].section;if(val===old||!val.trim())return;openApplyModal(`Rename section "${old}" → "${val}" on:`,selectedLists=>{selectedLists.forEach(l=>{if(fleetData[currentBoat].checklists[l]?.[si])fleetData[currentBoat].checklists[l][si].section=val;});persist();renderManage();showToast('Renamed','success');});}
+function manageItemRename(list,si,ii,val){const old=fleetData[currentBoat].checklists[list][si].items[ii];if(val===old||!val.trim())return;openApplyModal(`Rename "${old}" → "${val}" on:`,selectedLists=>{selectedLists.forEach(l=>{const items=fleetData[currentBoat].checklists[l]?.[si]?.items;if(items&&items[ii]!==undefined)items[ii]=val;});persist();renderManage();showToast('Renamed','success');});}
+function manageRemoveItem(list,si,ii){const item=fleetData[currentBoat].checklists[list][si].items[ii];openApplyModal(`Remove "${item}" from:`,selectedLists=>{selectedLists.forEach(l=>{const items=fleetData[currentBoat].checklists[l]?.[si]?.items;if(items)items.splice(ii,1);});persist();renderManage();showToast('Removed');});}
+function manageRemoveSection(list,si){if(!confirm('Remove this section?'))return;const name=fleetData[currentBoat].checklists[list][si].section;openApplyModal(`Remove section "${name}" from:`,selectedLists=>{selectedLists.forEach(l=>{if(fleetData[currentBoat].checklists[l]?.[si])fleetData[currentBoat].checklists[l].splice(si,1);});persist();renderManage();showToast('Section removed');});}
+function manageAddItem(list,si){const el=document.getElementById(`ni-${list.replace(/\W/g,'_')}-${si}`);if(!el||!el.value.trim())return;const val=el.value.trim();el.value='';openApplyModal(`Add "${val}" to:`,selectedLists=>{selectedLists.forEach(l=>{if(fleetData[currentBoat].checklists[l]?.[si])fleetData[currentBoat].checklists[l][si].items.push(val);});persist();renderManage();showToast('Added','success');});}
+function manageAddSection(list){const el=document.getElementById(`ns-${list.replace(/\W/g,'_')}`);if(!el||!el.value.trim())return;const val=el.value.trim();el.value='';openApplyModal(`Add section "${val}" to:`,selectedLists=>{selectedLists.forEach(l=>{if(fleetData[currentBoat].checklists[l])fleetData[currentBoat].checklists[l].push({section:val,items:[]});});persist();renderManage();showToast('Section added','success');});}
+function manageAddList(){const el=document.getElementById('new-list-name');if(!el||!el.value.trim())return;const name=el.value.trim();if(fleetData[currentBoat].checklists[name]){showToast('Already exists');return;}fleetData[currentBoat].checklists[name]=[];el.value='';persist();renderManage();showToast('Checklist added','success');}
+function removeList(list){if(!confirm(`Remove the "${list}" checklist?`))return;delete fleetData[currentBoat].checklists[list];persist();renderManage();showToast('Removed');}
 
 loadFleet();
 </script>
