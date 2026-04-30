@@ -7,101 +7,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy: #0a1628;
-  --navy-mid: #112240;
-  --navy-light: #1a3357;
-  --teal: #0fb4a0;
-  --teal-dim: #0d9a88;
-  --gold: #c9a84c;
-  --gold-dim: #a88834;
-  --cream: #f5f1eb;
-  --cream-dim: #ede8e0;
-  --white: #ffffff;
-  --text-main: #f0ece4;
-  --text-muted: #8a9bb5;
-  --text-dim: #4a5a70;
-  --danger: #e05555;
-  --success: #0fb4a0;
-  --border: rgba(255,255,255,0.07);
-  --card-bg: rgba(255,255,255,0.04);
-  --card-hover: rgba(255,255,255,0.07);
-  --radius: 12px;
-  --radius-sm: 8px;
+  --navy: #0a1628; --navy-mid: #112240; --navy-light: #1a3357;
+  --teal: #0fb4a0; --teal-dim: #0d9a88;
+  --gold: #c9a84c; --gold-dim: #a88834;
+  --cream: #f5f1eb; --text-main: #f0ece4;
+  --text-muted: #8a9bb5; --text-dim: #4a5a70;
+  --danger: #e05555; --border: rgba(255,255,255,0.07);
+  --card-bg: rgba(255,255,255,0.04); --card-hover: rgba(255,255,255,0.07);
+  --radius: 12px; --radius-sm: 8px;
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--text-main); min-height: 100vh; font-size: 15px; line-height: 1.6; }
+body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 60% at 20% 10%, rgba(15,180,160,0.08) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 80%, rgba(201,168,76,0.06) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+.app { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 20px 110px; }
 
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--navy);
-  color: var(--text-main);
-  min-height: 100vh;
-  font-size: 15px;
-  line-height: 1.6;
-}
+.header { display: flex; align-items: center; justify-content: space-between; padding: 28px 0 32px; border-bottom: 0.5px solid var(--border); margin-bottom: 36px; }
+.logo-title { font-family: 'Instrument Serif', serif; font-size: 24px; color: var(--cream); letter-spacing: -0.3px; }
+.logo-sub { font-size: 11px; font-weight: 300; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-left: 10px; }
 
-/* ---- BACKGROUND TEXTURE ---- */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(15,180,160,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 80% at 80% 80%, rgba(201,168,76,0.06) 0%, transparent 60%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.app { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 20px 80px; }
-
-/* ---- HEADER ---- */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 28px 0 32px;
-  border-bottom: 0.5px solid var(--border);
-  margin-bottom: 36px;
-}
-.logo {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-}
-.logo-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: 24px;
-  color: var(--cream);
-  letter-spacing: -0.3px;
-}
-.logo-sub {
-  font-size: 11px;
-  font-weight: 300;
-  color: var(--text-muted);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* ---- BUTTONS ---- */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 9px 18px;
-  border-radius: var(--radius-sm);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.15s;
-  border: none;
-  white-space: nowrap;
-}
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s; border: none; white-space: nowrap; }
 .btn-primary { background: var(--teal); color: var(--navy); }
 .btn-primary:hover { background: var(--teal-dim); }
 .btn-gold { background: var(--gold); color: var(--navy); }
@@ -113,452 +37,134 @@ body::before {
 .btn-sm { padding: 5px 12px; font-size: 12px; }
 .btn-xs { padding: 3px 9px; font-size: 11px; }
 
-/* ---- VIEWS ---- */
 .view { display: none; }
 .view.active { display: block; }
 
-/* ---- FLEET OVERVIEW ---- */
-.section-label {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 16px;
-}
-.boats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 14px;
-  margin-bottom: 28px;
-}
-.boat-card {
-  background: var(--card-bg);
-  border: 0.5px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px 22px;
-  cursor: pointer;
-  transition: all 0.2s;
-  position: relative;
-  overflow: hidden;
-}
-.boat-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--teal);
-  transform: scaleX(0);
-  transition: transform 0.2s;
-  transform-origin: left;
-}
-.boat-card:hover { background: var(--card-hover); border-color: rgba(255,255,255,0.12); }
+.section-label { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+.boats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-bottom: 28px; }
+.boat-card { background: var(--card-bg); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 20px 22px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
+.boat-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--teal); transform: scaleX(0); transition: transform 0.2s; transform-origin: left; }
+.boat-card:hover { background: var(--card-hover); }
 .boat-card:hover::after { transform: scaleX(1); }
-.boat-card-name {
-  font-family: 'Instrument Serif', serif;
-  font-size: 20px;
-  color: var(--cream);
-  margin-bottom: 4px;
-}
+.boat-card-name { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--cream); margin-bottom: 4px; }
 .boat-card-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; }
-.boat-card-stats { display: flex; gap: 16px; }
-.boat-stat { }
 .boat-stat-num { font-size: 18px; font-weight: 500; color: var(--teal); }
 .boat-stat-lbl { font-size: 11px; color: var(--text-muted); }
-.add-boat-card {
-  background: transparent;
-  border: 0.5px dashed var(--text-dim);
-  border-radius: var(--radius);
-  padding: 20px 22px;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  color: var(--text-dim);
-  font-size: 13px;
-  min-height: 120px;
-}
+.add-boat-card { background: transparent; border: 0.5px dashed var(--text-dim); border-radius: var(--radius); padding: 20px 22px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--text-dim); font-size: 13px; min-height: 120px; }
 .add-boat-card:hover { border-color: var(--teal); color: var(--teal); background: rgba(15,180,160,0.04); }
 
-/* ---- MODAL ---- */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  z-index: 100;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.78); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
 .modal-overlay.open { display: flex; }
-.modal {
-  background: var(--navy-mid);
-  border: 0.5px solid rgba(255,255,255,0.1);
-  border-radius: var(--radius);
-  padding: 28px;
-  width: 100%;
-  max-width: 480px;
-}
-.modal h3 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 20px;
-  color: var(--cream);
-  margin-bottom: 20px;
-}
+.modal { background: var(--navy-mid); border: 0.5px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 28px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
+.modal h3 { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--cream); margin-bottom: 6px; }
+.modal-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.5; }
 .form-group { margin-bottom: 16px; }
 .form-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; display: block; letter-spacing: 0.5px; }
-.form-input {
-  width: 100%;
-  background: rgba(255,255,255,0.05);
-  border: 0.5px solid rgba(255,255,255,0.1);
-  border-radius: var(--radius-sm);
-  padding: 10px 14px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  color: var(--text-main);
-  outline: none;
-  transition: border-color 0.15s;
-}
+.form-input { width: 100%; background: rgba(255,255,255,0.05); border: 0.5px solid rgba(255,255,255,0.1); border-radius: var(--radius-sm); padding: 10px 14px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text-main); outline: none; transition: border-color 0.15s; }
 .form-input:focus { border-color: var(--teal); }
 .form-input::placeholder { color: var(--text-dim); }
-.form-textarea { min-height: 80px; resize: vertical; }
 .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
 
-/* ---- BOAT DETAIL ---- */
-.back-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  color: var(--text-muted);
-  cursor: pointer;
-  margin-bottom: 28px;
-  transition: color 0.15s;
-  background: none;
-  border: none;
-  padding: 0;
-  font-family: 'DM Sans', sans-serif;
-}
+.list-check-group { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.list-check-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: rgba(255,255,255,0.03); border: 0.5px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: background 0.15s; }
+.list-check-row:hover { background: var(--card-hover); }
+.list-check-row input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--teal); cursor: pointer; flex-shrink: 0; }
+.list-check-label { font-size: 14px; color: var(--text-main); }
+
+.back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); cursor: pointer; margin-bottom: 28px; transition: color 0.15s; background: none; border: none; padding: 0; font-family: 'DM Sans', sans-serif; }
 .back-btn:hover { color: var(--teal); }
-.boat-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 28px;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-.boat-header-left h1 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 36px;
-  color: var(--cream);
-  margin-bottom: 4px;
-  letter-spacing: -0.5px;
-}
-.boat-header-left p { font-size: 13px; color: var(--text-muted); }
+.boat-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; }
+.boat-header-left h1 { font-family: 'Instrument Serif', serif; font-size: 36px; color: var(--cream); letter-spacing: -0.5px; }
+.boat-header-left p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
 .boat-header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
-/* ---- TABS ---- */
-.tabs-row {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 28px;
-  border-bottom: 0.5px solid var(--border);
-  padding-bottom: 0;
-  overflow-x: auto;
-}
-.tab-btn {
-  padding: 10px 20px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-muted);
-  background: none;
-  border: none;
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -0.5px;
-  white-space: nowrap;
-  transition: all 0.15s;
-}
+.tabs-row { display: flex; gap: 4px; margin-bottom: 28px; border-bottom: 0.5px solid var(--border); overflow-x: auto; }
+.tab-btn { padding: 10px 20px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--text-muted); background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -0.5px; white-space: nowrap; transition: all 0.15s; }
 .tab-btn:hover { color: var(--text-main); }
 .tab-btn.active { color: var(--teal); border-bottom-color: var(--teal); }
 
-/* ---- CHECKLIST VIEW ---- */
-.checklist-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  gap: 10px;
-}
 .progress-wrap { flex: 1; min-width: 200px; }
-.progress-label {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 6px;
-}
-.progress-track {
-  height: 4px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.progress-fill {
-  height: 100%;
-  background: var(--teal);
-  border-radius: 2px;
-  transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
-}
+.progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+.progress-track { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--teal); border-radius: 2px; transition: width 0.4s cubic-bezier(0.4,0,0.2,1); }
+
 .section-block { margin-bottom: 20px; }
-.section-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  background: rgba(255,255,255,0.03);
-  border: 0.5px solid var(--border);
-  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
-}
-.section-head-name {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
+.section-head { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: rgba(255,255,255,0.03); border: 0.5px solid var(--border); border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+.section-head-name { font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
 .section-head-count { font-size: 12px; color: var(--text-dim); }
-.section-items {
-  border: 0.5px solid var(--border);
-  border-top: none;
-  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-  overflow: hidden;
-}
-.checklist-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 13px 16px;
-  border-top: 0.5px solid var(--border);
-  transition: background 0.15s;
-}
+.section-items { border: 0.5px solid var(--border); border-top: none; border-radius: 0 0 var(--radius-sm) var(--radius-sm); overflow: hidden; }
+.checklist-row { display: flex; align-items: flex-start; gap: 12px; padding: 13px 16px; border-top: 0.5px solid var(--border); transition: background 0.15s; }
 .checklist-row:first-child { border-top: none; }
 .checklist-row:hover { background: var(--card-hover); }
-.checklist-row.done { opacity: 0.5; }
-.checklist-row.done .item-text { text-decoration: line-through; }
-.check-box {
-  width: 20px; height: 20px;
-  border-radius: 5px;
-  border: 1.5px solid var(--text-dim);
-  flex-shrink: 0;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 1px;
-  transition: all 0.15s;
-}
+.checklist-row.done .item-text { text-decoration: line-through; color: var(--text-dim); }
+.check-box { width: 20px; height: 20px; border-radius: 5px; border: 1.5px solid var(--text-dim); flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-top: 2px; transition: all 0.15s; }
 .check-box:hover { border-color: var(--teal); }
 .check-box.checked { background: var(--teal); border-color: var(--teal); }
 .check-box svg { display: none; }
 .check-box.checked svg { display: block; }
 .item-content { flex: 1; min-width: 0; }
 .item-text { font-size: 14px; color: var(--text-main); }
-.item-note-display {
-  font-size: 12px;
-  color: var(--gold);
-  margin-top: 3px;
-  display: flex;
-  align-items: flex-start;
-  gap: 5px;
-}
-.note-toggle {
-  font-size: 11px;
-  color: var(--text-dim);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 2px 0;
-  font-family: 'DM Sans', sans-serif;
-  transition: color 0.15s;
-  margin-top: 4px;
-}
-.note-toggle:hover { color: var(--gold); }
-.note-textarea {
-  width: 100%;
-  margin-top: 8px;
-  background: rgba(201,168,76,0.06);
-  border: 0.5px solid rgba(201,168,76,0.25);
-  border-radius: 6px;
-  padding: 8px 10px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  color: var(--text-main);
-  resize: none;
-  min-height: 60px;
-  outline: none;
-}
+.item-note-display { font-size: 12px; color: var(--gold); margin-top: 4px; }
+.item-attachments { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.attachment-thumb { width: 64px; height: 64px; border-radius: 6px; overflow: hidden; border: 0.5px solid var(--border); cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; position: relative; }
+.attachment-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.attachment-thumb .video-badge { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.5); font-size: 22px; }
+.attachment-uploading { width: 64px; height: 64px; border-radius: 6px; border: 0.5px dashed var(--text-dim); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px; font-size: 10px; color: var(--text-dim); }
+.item-actions-row { display: flex; align-items: center; gap: 12px; margin-top: 6px; flex-wrap: wrap; }
+.action-link { font-size: 11px; color: var(--text-dim); background: none; border: none; cursor: pointer; padding: 0; font-family: 'DM Sans', sans-serif; transition: color 0.15s; display: inline-flex; align-items: center; gap: 4px; }
+.action-link:hover { color: var(--teal); }
+.action-link.gold:hover { color: var(--gold); }
+.note-textarea { width: 100%; margin-top: 8px; background: rgba(201,168,76,0.06); border: 0.5px solid rgba(201,168,76,0.25); border-radius: 6px; padding: 8px 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text-main); resize: none; min-height: 60px; outline: none; }
 .note-textarea::placeholder { color: var(--text-dim); }
-.note-actions { display: flex; gap: 8px; margin-top: 6px; }
+.note-save-row { display: flex; gap: 8px; margin-top: 6px; }
+.hidden-file { display: none; }
 
-/* ---- SUBMIT INSPECTION ---- */
-.submit-bar {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  background: var(--navy-mid);
-  border-top: 0.5px solid var(--border);
-  padding: 16px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  z-index: 50;
-  backdrop-filter: blur(10px);
-}
+.submit-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy-mid); border-top: 0.5px solid var(--border); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; z-index: 50; backdrop-filter: blur(10px); }
 .submit-info { font-size: 13px; color: var(--text-muted); }
 .submit-info strong { color: var(--text-main); }
 
-/* ---- HISTORY VIEW ---- */
-.history-empty {
-  text-align: center;
-  padding: 60px 20px;
-  color: var(--text-muted);
-}
+.history-empty { text-align: center; padding: 60px 20px; color: var(--text-muted); }
 .history-list { display: flex; flex-direction: column; gap: 12px; }
-.history-card {
-  background: var(--card-bg);
-  border: 0.5px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-.history-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 18px;
-  cursor: pointer;
-  transition: background 0.15s;
-}
+.history-card { background: var(--card-bg); border: 0.5px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.history-card-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; cursor: pointer; transition: background 0.15s; }
 .history-card-header:hover { background: var(--card-hover); }
 .history-card-title { font-size: 14px; font-weight: 500; color: var(--text-main); }
 .history-card-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-.history-badge {
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 500;
-}
+.history-badge { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; }
 .badge-full { background: rgba(15,180,160,0.15); color: var(--teal); }
 .badge-partial { background: rgba(201,168,76,0.15); color: var(--gold); }
-.history-items {
-  border-top: 0.5px solid var(--border);
-  padding: 14px 18px;
-  display: none;
-}
+.history-items { border-top: 0.5px solid var(--border); padding: 14px 18px; display: none; }
 .history-items.open { display: block; }
-.history-item-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 5px 0;
-  font-size: 13px;
-  color: var(--text-muted);
-  border-bottom: 0.5px solid rgba(255,255,255,0.04);
-}
+.history-item-row { padding: 6px 0; border-bottom: 0.5px solid rgba(255,255,255,0.04); }
 .history-item-row:last-child { border-bottom: none; }
-.history-item-check { color: var(--teal); flex-shrink: 0; margin-top: 1px; }
-.history-item-cross { color: var(--text-dim); flex-shrink: 0; margin-top: 1px; }
-.history-item-note { font-size: 11px; color: var(--gold); margin-top: 2px; }
+.history-item-top { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; }
+.history-item-check { color: var(--teal); flex-shrink: 0; }
+.history-item-cross { color: var(--text-dim); flex-shrink: 0; }
+.history-item-note { font-size: 11px; color: var(--gold); padding-left: 20px; margin-top: 3px; }
+.history-item-media { display: flex; flex-wrap: wrap; gap: 6px; padding-left: 20px; margin-top: 6px; }
+.history-thumb { width: 56px; height: 56px; border-radius: 6px; object-fit: cover; border: 0.5px solid var(--border); cursor: pointer; }
+.history-video-link { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--teal); text-decoration: none; padding: 4px 8px; border: 0.5px solid rgba(15,180,160,0.3); border-radius: 4px; }
 
-/* ---- MANAGE VIEW ---- */
-.manage-section { margin-bottom: 32px; }
-.manage-section h3 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 18px;
-  color: var(--cream);
-  margin-bottom: 14px;
-}
-.manage-list { display: flex; flex-direction: column; gap: 8px; }
-.manage-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--card-bg);
-  border: 0.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 10px 14px;
-}
-.manage-row-label { flex: 1; font-size: 14px; color: var(--text-main); }
-.manage-row-sub { font-size: 12px; color: var(--text-muted); }
-.manage-empty { font-size: 13px; color: var(--text-dim); padding: 12px 0; }
-.checklist-name-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 0;
-  border-bottom: 0.5px solid var(--border);
-}
-.checklist-name-row:last-child { border-bottom: none; }
-.inline-input {
-  background: transparent;
-  border: none;
-  border-bottom: 0.5px solid var(--text-dim);
-  color: var(--text-main);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  padding: 2px 4px;
-  outline: none;
-  flex: 1;
-  transition: border-color 0.15s;
-}
+.inline-input { background: transparent; border: none; border-bottom: 0.5px solid var(--text-dim); color: var(--text-main); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 2px 4px; outline: none; flex: 1; transition: border-color 0.15s; }
 .inline-input:focus { border-bottom-color: var(--teal); }
+.checklist-name-row { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 0.5px solid var(--border); }
+.checklist-name-row:last-child { border-bottom: none; }
+.edit-hint { font-size: 12px; color: var(--text-dim); margin-bottom: 20px; padding: 10px 14px; background: rgba(15,180,160,0.05); border-left: 2px solid var(--teal); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
 
-/* ---- TOAST ---- */
-.toast {
-  position: fixed;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: var(--navy-light);
-  border: 0.5px solid rgba(255,255,255,0.12);
-  border-radius: var(--radius-sm);
-  padding: 10px 20px;
-  font-size: 13px;
-  color: var(--text-main);
-  opacity: 0;
-  transition: all 0.3s;
-  z-index: 200;
-  white-space: nowrap;
-}
+.toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--navy-light); border: 0.5px solid rgba(255,255,255,0.12); border-radius: var(--radius-sm); padding: 10px 20px; font-size: 13px; color: var(--text-main); opacity: 0; transition: all 0.3s; z-index: 200; white-space: nowrap; pointer-events: none; }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .toast.success { border-color: rgba(15,180,160,0.4); }
+.toast.error { border-color: rgba(224,85,85,0.4); }
 
-/* ---- LOADING ---- */
-.loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-  color: var(--text-muted);
-  font-size: 13px;
-  gap: 10px;
-}
-.spinner {
-  width: 18px; height: 18px;
-  border: 2px solid var(--border);
-  border-top-color: var(--teal);
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-}
+.loading { display: flex; align-items: center; justify-content: center; padding: 40px; color: var(--text-muted); font-size: 13px; gap: 10px; }
+.spinner { width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--teal); border-radius: 50%; animation: spin 0.7s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ---- RESPONSIVE ---- */
+.lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.93); z-index: 300; align-items: center; justify-content: center; }
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 92vw; max-height: 88vh; border-radius: var(--radius-sm); }
+.lightbox-close { position: absolute; top: 20px; right: 24px; font-size: 32px; color: var(--text-muted); cursor: pointer; background: none; border: none; line-height: 1; }
+
 @media (max-width: 600px) {
   .header { flex-direction: column; align-items: flex-start; gap: 12px; }
   .boat-header { flex-direction: column; align-items: flex-start; }
@@ -567,15 +173,11 @@ body::before {
 </style>
 </head>
 <body>
-
 <div class="app">
   <header class="header">
     <div class="logo">
       <span class="logo-title">Fleet Inspection</span>
-      <span class="logo-sub">by KOS Yachts</span>
-    </div>
-    <div class="header-right">
-      <button class="btn btn-ghost btn-sm" onclick="showView('fleet')">Fleet</button>
+      <span class="logo-sub">KOS Yachts</span>
     </div>
   </header>
 
@@ -587,7 +189,7 @@ body::before {
     </div>
   </div>
 
-  <!-- BOAT DETAIL VIEW -->
+  <!-- BOAT VIEW -->
   <div class="view" id="view-boat">
     <button class="back-btn" onclick="showView('fleet')">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -603,7 +205,6 @@ body::before {
         <button class="btn btn-danger btn-sm" onclick="confirmRemoveBoat()">Remove boat</button>
       </div>
     </div>
-
     <div class="tabs-row" id="boat-tabs"></div>
     <div id="boat-tab-content"></div>
   </div>
@@ -615,7 +216,7 @@ body::before {
       Back to inspection
     </button>
     <p class="section-label" id="history-label"></p>
-    <div id="history-content"><div class="loading"><div class="spinner"></div> Loading history...</div></div>
+    <div id="history-content"><div class="loading"><div class="spinner"></div> Loading...</div></div>
   </div>
 
   <!-- MANAGE VIEW -->
@@ -631,9 +232,7 @@ body::before {
 
 <!-- SUBMIT BAR -->
 <div class="submit-bar" id="submit-bar" style="display:none">
-  <div class="submit-info">
-    <strong id="submit-boat-name"></strong> — <span id="submit-progress-text"></span>
-  </div>
+  <div class="submit-info"><strong id="submit-boat-name"></strong> — <span id="submit-progress-text"></span></div>
   <div style="display:flex;gap:10px">
     <button class="btn btn-ghost" onclick="showHistory()">View history</button>
     <button class="btn btn-gold" onclick="submitInspection()">Submit inspection</button>
@@ -646,7 +245,7 @@ body::before {
     <h3>Add a boat</h3>
     <div class="form-group">
       <label class="form-label">Boat name</label>
-      <input class="form-input" id="new-boat-name" placeholder="e.g. Lady M, Sea Ray 42'" />
+      <input class="form-input" id="new-boat-name" placeholder="e.g. Lady M, Grady White 32'" onkeydown="if(event.key==='Enter')addBoat()" />
     </div>
     <div class="form-group">
       <label class="form-label">Notes (optional)</label>
@@ -659,60 +258,73 @@ body::before {
   </div>
 </div>
 
+<!-- APPLY TO LISTS MODAL -->
+<div class="modal-overlay" id="modal-apply-lists">
+  <div class="modal">
+    <h3>Apply to checklists</h3>
+    <p class="modal-subtitle" id="apply-modal-desc"></p>
+    <div class="list-check-group" id="apply-list-checks"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-apply-lists')">Cancel</button>
+      <button class="btn btn-primary" onclick="confirmApplyLists()">Apply changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <img id="lightbox-img" src="" alt="Inspection photo" />
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
 // ============================================================
-// CONFIGURATION — REPLACE THIS WITH YOUR APPS SCRIPT URL
-// ============================================================
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzXcSDuWo92sGq4WWUKonFt4uBFgZyJuH0NgYPPL54sSOcYP8nxIlZ0FckquQ1d_YKR/exec';
+// REPLACE THIS WITH YOUR APPS SCRIPT URL
+const SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
 // ============================================================
 
-let fleetData = {};       // { boatName: { notes, checklists: { listName: [{section, items:[]}] } } }
+let fleetData = {};
 let currentBoat = null;
 let currentList = null;
-let checkState = {};      // { itemKey: {checked, note, editingNote} }
-let savingNote = {};
+let checkState = {};
+let pendingApply = null;
 
-// ---- UTILS ----
-function itemKey(list, secIdx, itemIdx) { return `${list}||${secIdx}||${itemIdx}`; }
+function itemKey(list, si, ii) { return `${list}||${si}||${ii}`; }
 
 function showToast(msg, type='') {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast show ' + type;
-  setTimeout(() => t.className = 'toast', 2800);
+  t.textContent = msg; t.className = 'toast show ' + type;
+  setTimeout(() => { t.className = 'toast'; }, 3200);
 }
 
 function showView(name) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + name).classList.add('active');
-  const bar = document.getElementById('submit-bar');
-  bar.style.display = (name === 'boat') ? 'flex' : 'none';
+  document.getElementById('submit-bar').style.display = (name === 'boat') ? 'flex' : 'none';
 }
 
 function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-// ---- API CALLS ----
 async function api(action, payload={}) {
   const params = new URLSearchParams({ action, ...payload });
   const res = await fetch(SCRIPT_URL + '?' + params);
   return res.json();
 }
-
 async function apiPost(action, payload={}) {
-  const body = JSON.stringify({ action, ...payload });
   const res = await fetch(SCRIPT_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain' },
-    body
+    body: JSON.stringify({ action, ...payload })
   });
   return res.json();
 }
 
-// ---- FLEET LOAD ----
+// ---- FLEET ----
 async function loadFleet() {
   try {
     const data = await api('getFleet');
@@ -720,27 +332,20 @@ async function loadFleet() {
     renderFleet();
   } catch(e) {
     document.getElementById('boats-grid').innerHTML =
-      `<div style="color:var(--danger);font-size:13px;padding:20px">
-        Could not connect to Google Sheets backend.<br>
-        <span style="color:var(--text-muted)">Check your SCRIPT_URL in the HTML file.</span>
-      </div>`;
+      `<div style="color:var(--danger);font-size:13px;padding:20px 0">Could not connect. Check your SCRIPT_URL in index.html.</div>`;
   }
 }
 
 function renderFleet() {
-  const grid = document.getElementById('boats-grid');
   const boats = Object.keys(fleetData);
   let html = boats.map(name => {
     const b = fleetData[name];
-    const listCount = Object.keys(b.checklists || {}).length;
+    const listCount = Object.keys(b.checklists||{}).length;
     return `<div class="boat-card" onclick="showBoatDetail('${esc(name)}')">
       <div class="boat-card-name">${esc(name)}</div>
-      <div class="boat-card-meta">${b.notes || 'No notes'}</div>
-      <div class="boat-card-stats">
-        <div class="boat-stat">
-          <div class="boat-stat-num">${listCount}</div>
-          <div class="boat-stat-lbl">Checklists</div>
-        </div>
+      <div class="boat-card-meta">${esc(b.notes)||'No notes'}</div>
+      <div style="display:flex;gap:16px">
+        <div><div class="boat-stat-num">${listCount}</div><div class="boat-stat-lbl">Checklists</div></div>
       </div>
     </div>`;
   }).join('');
@@ -748,30 +353,24 @@ function renderFleet() {
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 3v12M3 9h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
     Add boat
   </div>`;
-  grid.innerHTML = html;
+  document.getElementById('boats-grid').innerHTML = html;
 }
 
-function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
-// ---- ADD BOAT ----
 async function addBoat() {
   const name = document.getElementById('new-boat-name').value.trim();
   const notes = document.getElementById('new-boat-notes').value.trim();
   if (!name) return;
   closeModal('modal-add-boat');
   showToast('Adding boat…');
-  try {
-    await apiPost('addBoat', { name, notes });
-    await loadFleet();
-    showToast('Boat added', 'success');
-    document.getElementById('new-boat-name').value = '';
-    document.getElementById('new-boat-notes').value = '';
-  } catch(e) { showToast('Error adding boat'); }
+  await apiPost('addBoat', { name, notes });
+  await loadFleet();
+  document.getElementById('new-boat-name').value = '';
+  document.getElementById('new-boat-notes').value = '';
+  showToast('Boat added', 'success');
 }
 
 async function confirmRemoveBoat() {
   if (!confirm(`Remove "${currentBoat}" and ALL its data? This cannot be undone.`)) return;
-  showToast('Removing…');
   await apiPost('removeBoat', { name: currentBoat });
   await loadFleet();
   showView('fleet');
@@ -780,80 +379,75 @@ async function confirmRemoveBoat() {
 
 // ---- BOAT DETAIL ----
 function showBoatDetail(name) {
-  currentBoat = name;
+  currentBoat = name; checkState = {};
   const b = fleetData[name];
-  if (!b) return;
-  checkState = {};
   document.getElementById('boat-detail-name').textContent = name;
   document.getElementById('boat-detail-meta').textContent = b.notes || '';
-  const lists = Object.keys(b.checklists || {});
+  const lists = Object.keys(b.checklists||{});
   currentList = lists[0] || null;
-  renderBoatTabs();
-  renderChecklist();
-  showView('boat');
-  updateSubmitBar();
+  renderBoatTabs(); renderChecklist(); showView('boat'); updateSubmitBar();
 }
 
 function renderBoatTabs() {
-  const b = fleetData[currentBoat];
-  const lists = Object.keys(b.checklists || {});
-  const html = lists.map(l =>
+  const lists = Object.keys(fleetData[currentBoat].checklists||{});
+  document.getElementById('boat-tabs').innerHTML = lists.map(l =>
     `<button class="tab-btn ${l===currentList?'active':''}" onclick="switchList('${esc(l)}')">${esc(l)}</button>`
   ).join('');
-  document.getElementById('boat-tabs').innerHTML = html;
 }
 
-function switchList(l) {
-  currentList = l;
-  renderBoatTabs();
-  renderChecklist();
-  updateSubmitBar();
-}
+function switchList(l) { currentList=l; renderBoatTabs(); renderChecklist(); updateSubmitBar(); }
 
 function renderChecklist() {
-  const b = fleetData[currentBoat];
-  const sections = (b.checklists[currentList] || []);
-  let total = 0, done = 0;
-  sections.forEach((s, si) => s.items.forEach((_, ii) => {
-    total++;
-    if (checkState[itemKey(currentList, si, ii)]?.checked) done++;
-  }));
+  const sections = fleetData[currentBoat].checklists[currentList]||[];
+  let total=0, done=0;
+  sections.forEach((s,si)=>s.items.forEach((_,ii)=>{ total++; if(checkState[itemKey(currentList,si,ii)]?.checked) done++; }));
   const pct = total ? Math.round(done/total*100) : 0;
 
-  let html = `<div class="checklist-meta">
-    <div class="progress-wrap">
-      <div class="progress-label"><span>${currentList}</span><span>${done}/${total} complete</span></div>
-      <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
-    </div>
+  let html = `<div style="margin-bottom:20px">
+    <div class="progress-label"><span>${esc(currentList)}</span><span>${done}/${total} complete</span></div>
+    <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
   </div>`;
 
-  sections.forEach((sec, si) => {
-    const secDone = sec.items.filter((_, ii) => checkState[itemKey(currentList, si, ii)]?.checked).length;
+  sections.forEach((sec,si) => {
+    const secDone = sec.items.filter((_,ii)=>checkState[itemKey(currentList,si,ii)]?.checked).length;
     html += `<div class="section-block">
       <div class="section-head">
         <span class="section-head-name">${esc(sec.section)}</span>
         <span class="section-head-count">${secDone}/${sec.items.length}</span>
       </div>
       <div class="section-items">`;
-    sec.items.forEach((item, ii) => {
-      const k = itemKey(currentList, si, ii);
-      const st = checkState[k] || {};
-      const isDone = !!st.checked;
-      const note = st.note || '';
-      const editing = !!st.editingNote;
-      html += `<div class="checklist-row ${isDone?'done':''}" id="row-${si}-${ii}">
-        <div class="check-box ${isDone?'checked':''}" onclick="toggleCheck(${si},${ii})">
+    sec.items.forEach((item,ii) => {
+      const k = itemKey(currentList,si,ii);
+      const st = checkState[k]||{};
+      const attachments = st.attachments||[];
+      let thumbs = attachments.map(a => a.type==='image'
+        ? `<div class="attachment-thumb" onclick="openLightbox('${esc(a.url)}')"><img src="${esc(a.url)}" loading="lazy"/></div>`
+        : `<a class="attachment-thumb" href="${esc(a.url)}" target="_blank" rel="noopener"><div class="video-badge">▶</div></a>`
+      ).join('');
+      if (st.uploading) thumbs += `<div class="attachment-uploading"><div class="spinner" style="width:14px;height:14px;border-width:1.5px"></div><span>Uploading</span></div>`;
+
+      html += `<div class="checklist-row ${st.checked?'done':''}">
+        <div class="check-box ${st.checked?'checked':''}" onclick="toggleCheck(${si},${ii})">
           <svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4L4 7.5L10 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="item-content">
           <div class="item-text">${esc(item)}</div>
-          ${note && !editing ? `<div class="item-note-display"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2h8v7l-3-1.5L4 9V2z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg>${esc(note)}</div>` : ''}
-          ${editing ? `<textarea class="note-textarea" id="note-ta-${si}-${ii}" placeholder="Add a note for this item...">${esc(note)}</textarea>
-            <div class="note-actions">
+          ${st.note&&!st.editingNote ? `<div class="item-note-display">📝 ${esc(st.note)}</div>` : ''}
+          ${attachments.length||st.uploading ? `<div class="item-attachments">${thumbs}</div>` : ''}
+          ${st.editingNote ? `
+            <textarea class="note-textarea" id="note-ta-${si}-${ii}" placeholder="Add a note...">${esc(st.note||'')}</textarea>
+            <div class="note-save-row">
               <button class="btn btn-xs" style="background:rgba(201,168,76,0.15);color:var(--gold);border:none" onclick="saveNote(${si},${ii})">Save note</button>
               <button class="btn btn-xs btn-ghost" onclick="cancelNote(${si},${ii})">Cancel</button>
             </div>` : ''}
-          <button class="note-toggle" onclick="toggleNote(${si},${ii})">${editing?'':'+ note'}</button>
+          <div class="item-actions-row">
+            <button class="action-link gold" onclick="toggleNote(${si},${ii})">${st.editingNote?'':(st.note?'✏ note':'+ note')}</button>
+            <button class="action-link" onclick="triggerUpload(${si},${ii})">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1v7M3 4l3-3 3 3M1 10h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              photo/video
+            </button>
+            <input type="file" accept="image/*,video/*" capture="environment" class="hidden-file" id="file-${si}-${ii}" onchange="handleUpload(${si},${ii},this)"/>
+          </div>
         </div>
       </div>`;
     });
@@ -863,253 +457,280 @@ function renderChecklist() {
   document.getElementById('boat-tab-content').innerHTML = html;
 }
 
-function toggleCheck(si, ii) {
-  const k = itemKey(currentList, si, ii);
-  if (!checkState[k]) checkState[k] = {};
-  checkState[k].checked = !checkState[k].checked;
-  renderChecklist();
-  updateSubmitBar();
+function toggleCheck(si,ii) {
+  const k=itemKey(currentList,si,ii);
+  if(!checkState[k]) checkState[k]={};
+  checkState[k].checked=!checkState[k].checked;
+  renderChecklist(); updateSubmitBar();
 }
 
-function toggleNote(si, ii) {
-  const k = itemKey(currentList, si, ii);
-  if (!checkState[k]) checkState[k] = {};
-  checkState[k].editingNote = true;
+function toggleNote(si,ii) {
+  const k=itemKey(currentList,si,ii);
+  if(!checkState[k]) checkState[k]={};
+  checkState[k].editingNote=true;
   renderChecklist();
-  const ta = document.getElementById(`note-ta-${si}-${ii}`);
-  if (ta) { ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); }
+  setTimeout(()=>{ const ta=document.getElementById(`note-ta-${si}-${ii}`); if(ta){ta.focus();ta.setSelectionRange(ta.value.length,ta.value.length);} },30);
 }
-
-function saveNote(si, ii) {
-  const k = itemKey(currentList, si, ii);
-  const ta = document.getElementById(`note-ta-${si}-${ii}`);
-  if (!checkState[k]) checkState[k] = {};
-  checkState[k].note = ta ? ta.value.trim() : '';
-  checkState[k].editingNote = false;
+function saveNote(si,ii) {
+  const k=itemKey(currentList,si,ii);
+  const ta=document.getElementById(`note-ta-${si}-${ii}`);
+  if(!checkState[k]) checkState[k]={};
+  checkState[k].note=ta?ta.value.trim():'';
+  checkState[k].editingNote=false;
   renderChecklist();
 }
-
-function cancelNote(si, ii) {
-  const k = itemKey(currentList, si, ii);
-  if (checkState[k]) checkState[k].editingNote = false;
+function cancelNote(si,ii) {
+  const k=itemKey(currentList,si,ii);
+  if(checkState[k]) checkState[k].editingNote=false;
   renderChecklist();
 }
 
-function updateSubmitBar() {
-  const bar = document.getElementById('submit-bar');
-  if (!currentBoat) { bar.style.display='none'; return; }
-  bar.style.display = 'flex';
-  document.getElementById('submit-boat-name').textContent = currentBoat;
-  const b = fleetData[currentBoat];
-  const sections = (b.checklists[currentList] || []);
-  let total=0, done=0;
-  sections.forEach((s, si) => s.items.forEach((_, ii) => {
-    total++; if (checkState[itemKey(currentList, si, ii)]?.checked) done++;
-  }));
-  document.getElementById('submit-progress-text').textContent = `${done}/${total} items — ${currentList}`;
-}
+// ---- UPLOAD ----
+function triggerUpload(si,ii) { document.getElementById(`file-${si}-${ii}`).click(); }
 
-// ---- SUBMIT INSPECTION ----
-async function submitInspection() {
-  const b = fleetData[currentBoat];
-  const sections = (b.checklists[currentList] || []);
-  const items = [];
-  sections.forEach((s, si) => {
-    s.items.forEach((item, ii) => {
-      const st = checkState[itemKey(currentList, si, ii)] || {};
-      items.push({
-        section: s.section,
-        item,
-        checked: !!st.checked,
-        note: st.note || ''
-      });
-    });
-  });
-  const total = items.length;
-  const done = items.filter(i => i.checked).length;
-  showToast('Saving inspection…');
+async function handleUpload(si,ii,input) {
+  const file=input.files[0]; if(!file) return;
+  const k=itemKey(currentList,si,ii);
+  if(!checkState[k]) checkState[k]={};
+  checkState[k].uploading=true; renderChecklist();
+  showToast('Uploading…');
   try {
-    await apiPost('submitInspection', {
-      boat: currentBoat,
-      list: currentList,
-      items: JSON.stringify(items),
-      done,
-      total,
-      date: new Date().toLocaleString()
-    });
-    checkState = {};
-    renderChecklist();
-    updateSubmitBar();
-    showToast(`Inspection saved — ${done}/${total} complete`, 'success');
-  } catch(e) { showToast('Error saving inspection'); }
+    const base64=await fileToBase64(file);
+    const result=await apiPost('uploadFile',{boat:currentBoat,list:currentList,fileName:file.name,mimeType:file.type,data:base64});
+    if(result.url) {
+      if(!checkState[k].attachments) checkState[k].attachments=[];
+      checkState[k].attachments.push({url:result.url,type:file.type.startsWith('video/')?'video':'image'});
+      showToast('Uploaded','success');
+    } else { showToast('Upload failed — check Drive permissions','error'); }
+  } catch(e) { showToast('Upload error','error'); }
+  checkState[k].uploading=false; renderChecklist(); input.value='';
+}
+
+function fileToBase64(file) {
+  return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result.split(',')[1]); r.onerror=rej; r.readAsDataURL(file); });
+}
+
+function openLightbox(url) { document.getElementById('lightbox-img').src=url; document.getElementById('lightbox').classList.add('open'); }
+function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+
+// ---- SUBMIT ----
+function updateSubmitBar() {
+  if(!currentBoat){document.getElementById('submit-bar').style.display='none';return;}
+  document.getElementById('submit-bar').style.display='flex';
+  document.getElementById('submit-boat-name').textContent=currentBoat;
+  const sections=fleetData[currentBoat].checklists[currentList]||[];
+  let total=0,done=0;
+  sections.forEach((s,si)=>s.items.forEach((_,ii)=>{ total++; if(checkState[itemKey(currentList,si,ii)]?.checked) done++; }));
+  document.getElementById('submit-progress-text').textContent=`${done}/${total} items — ${currentList}`;
+}
+
+async function submitInspection() {
+  const sections=fleetData[currentBoat].checklists[currentList]||[];
+  const items=[];
+  sections.forEach((s,si)=>{ s.items.forEach((item,ii)=>{ const st=checkState[itemKey(currentList,si,ii)]||{}; items.push({section:s.section,item,checked:!!st.checked,note:st.note||'',attachments:(st.attachments||[]).map(a=>a.url).join(',')}); }); });
+  const done=items.filter(i=>i.checked).length;
+  showToast('Saving…');
+  try {
+    await apiPost('submitInspection',{boat:currentBoat,list:currentList,items:JSON.stringify(items),done,total:items.length,date:new Date().toLocaleString()});
+    checkState={}; renderChecklist(); updateSubmitBar();
+    showToast(`Saved — ${done}/${items.length} complete`,'success');
+  } catch(e) { showToast('Error saving','error'); }
 }
 
 // ---- HISTORY ----
 async function showHistory() {
   showView('history');
-  document.getElementById('submit-bar').style.display = 'none';
-  document.getElementById('history-label').textContent = `${currentBoat} — ${currentList} history`;
-  document.getElementById('history-content').innerHTML = '<div class="loading"><div class="spinner"></div> Loading history...</div>';
+  document.getElementById('submit-bar').style.display='none';
+  document.getElementById('history-label').textContent=`${currentBoat} — ${currentList} history`;
+  document.getElementById('history-content').innerHTML='<div class="loading"><div class="spinner"></div> Loading history...</div>';
   try {
-    const data = await api('getHistory', { boat: currentBoat, list: currentList });
-    renderHistory(data.history || []);
-  } catch(e) {
-    document.getElementById('history-content').innerHTML = '<div class="history-empty">Could not load history.</div>';
-  }
+    const data=await api('getHistory',{boat:currentBoat,list:currentList});
+    renderHistory(data.history||[]);
+  } catch(e) { document.getElementById('history-content').innerHTML='<div class="history-empty">Could not load history.</div>'; }
 }
 
 function renderHistory(history) {
-  if (!history.length) {
-    document.getElementById('history-content').innerHTML = '<div class="history-empty">No inspections submitted yet for this checklist.</div>';
-    return;
-  }
-  const html = history.slice().reverse().map((h, idx) => {
-    const pct = h.total ? Math.round(h.done/h.total*100) : 0;
-    const full = pct === 100;
-    const itemRows = (h.items||[]).map(it => `
-      <div class="history-item-row">
-        <span class="${it.checked?'history-item-check':'history-item-cross'}">
-          ${it.checked ? '✓' : '○'}
-        </span>
-        <div>
-          <div style="font-size:12px;color:${it.checked?'var(--text-main)':'var(--text-dim)'}">${esc(it.section)} — ${esc(it.item)}</div>
-          ${it.note ? `<div class="history-item-note">📝 ${esc(it.note)}</div>` : ''}
+  if(!history.length){ document.getElementById('history-content').innerHTML='<div class="history-empty">No inspections submitted yet for this checklist.</div>'; return; }
+  const html=history.slice().reverse().map((h,idx)=>{
+    const pct=h.total?Math.round(h.done/h.total*100):0;
+    const full=pct===100;
+    const itemRows=(h.items||[]).map(it=>{
+      const mediaUrls=(it.attachments||'').split(',').filter(Boolean);
+      const mediaHtml=mediaUrls.map(url=>{
+        const isVid=url.match(/\.(mp4|mov|avi|webm)/i)||(it.type==='video');
+        return isVid
+          ? `<a class="history-video-link" href="${esc(url)}" target="_blank" rel="noopener">▶ Video</a>`
+          : `<img class="history-thumb" src="${esc(url)}" onclick="openLightbox('${esc(url)}')" loading="lazy"/>`;
+      }).join('');
+      return `<div class="history-item-row">
+        <div class="history-item-top">
+          <span class="${it.checked?'history-item-check':'history-item-cross'}">${it.checked?'✓':'○'}</span>
+          <span style="color:${it.checked?'var(--text-main)':'var(--text-dim)'}">${esc(it.section)} — ${esc(it.item)}</span>
         </div>
-      </div>`).join('');
+        ${it.note?`<div class="history-item-note">📝 ${esc(it.note)}</div>`:''}
+        ${mediaHtml?`<div class="history-item-media">${mediaHtml}</div>`:''}
+      </div>`;
+    }).join('');
     return `<div class="history-card">
       <div class="history-card-header" onclick="toggleHistoryCard(${idx})">
-        <div>
-          <div class="history-card-title">${h.date}</div>
-          <div class="history-card-meta">${h.done}/${h.total} items complete (${pct}%)</div>
-        </div>
+        <div><div class="history-card-title">${esc(h.date)}</div><div class="history-card-meta">${h.done}/${h.total} complete (${pct}%)</div></div>
         <span class="history-badge ${full?'badge-full':'badge-partial'}">${full?'Complete':'Partial'}</span>
       </div>
       <div class="history-items" id="hist-items-${idx}">${itemRows}</div>
     </div>`;
   }).join('');
-  document.getElementById('history-content').innerHTML = `<div class="history-list">${html}</div>`;
+  document.getElementById('history-content').innerHTML=`<div class="history-list">${html}</div>`;
 }
 
-function toggleHistoryCard(idx) {
-  const el = document.getElementById(`hist-items-${idx}`);
-  el.classList.toggle('open');
-}
+function toggleHistoryCard(idx) { document.getElementById(`hist-items-${idx}`).classList.toggle('open'); }
 
-// ---- MANAGE CHECKLISTS ----
+// ---- MANAGE ----
 function showManage() {
   showView('manage');
-  document.getElementById('submit-bar').style.display = 'none';
-  document.getElementById('manage-label').textContent = `${currentBoat} — Manage checklists`;
+  document.getElementById('submit-bar').style.display='none';
+  document.getElementById('manage-label').textContent=`${currentBoat} — Manage checklists`;
   renderManage();
 }
 
 function renderManage() {
-  const b = fleetData[currentBoat];
-  const lists = Object.keys(b.checklists || {});
-  let html = `<div class="manage-section">
-    <h3>Checklists for ${currentBoat}</h3>
-    <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px">Each boat has its own independent checklists. Rename, add, remove items and sections to match this vessel's setup.</p>`;
+  const b=fleetData[currentBoat];
+  const lists=Object.keys(b.checklists||{});
+  let html=`<div class="edit-hint">Click any name to rename it inline. When you add, rename, or remove an item or section, you'll choose which checklists to apply the change to.</div>`;
 
-  lists.forEach(listName => {
-    const sections = b.checklists[listName];
-    html += `<div style="margin-bottom:28px">
+  lists.forEach(listName=>{
+    const sections=b.checklists[listName];
+    html+=`<div style="margin-bottom:32px">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
         <p class="section-label" style="margin:0">${esc(listName)}</p>
         <button class="btn btn-danger btn-xs" onclick="removeList('${esc(listName)}')">Remove list</button>
       </div>`;
-
-    sections.forEach((sec, si) => {
-      html += `<div class="manage-section" style="margin-bottom:12px">
-        <div class="manage-row" style="background:rgba(255,255,255,0.06)">
-          <input class="inline-input" value="${esc(sec.section)}" onblur="updateSectionName('${esc(listName)}',${si},this.value)" placeholder="Section name" />
-          <button class="btn btn-danger btn-xs" onclick="removeSection('${esc(listName)}',${si})">Remove</button>
+    sections.forEach((sec,si)=>{
+      html+=`<div style="margin-bottom:10px">
+        <div style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:rgba(255,255,255,0.05);border:0.5px solid var(--border);border-radius:var(--radius-sm) var(--radius-sm) 0 0">
+          <input class="inline-input" value="${esc(sec.section)}" onblur="manageSectionRename('${esc(listName)}',${si},this.value)" />
+          <button class="btn btn-danger btn-xs" onclick="manageRemoveSection('${esc(listName)}',${si})">Remove</button>
         </div>
-        <div style="padding-left:12px;margin-top:4px">
-          ${sec.items.map((item, ii) => `
+        <div style="border:0.5px solid var(--border);border-top:none;border-radius:0 0 var(--radius-sm) var(--radius-sm);padding:4px 12px">
+          ${sec.items.map((item,ii)=>`
             <div class="checklist-name-row">
-              <input class="inline-input" value="${esc(item)}" onblur="updateItemName('${esc(listName)}',${si},${ii},this.value)" />
-              <button class="btn btn-danger btn-xs" onclick="removeItem('${esc(listName)}',${si},${ii})">✕</button>
+              <input class="inline-input" value="${esc(item)}" onblur="manageItemRename('${esc(listName)}',${si},${ii},this.value)" />
+              <button class="btn btn-danger btn-xs" onclick="manageRemoveItem('${esc(listName)}',${si},${ii})">✕</button>
             </div>`).join('')}
           <div class="checklist-name-row">
-            <input class="inline-input" id="new-item-${listName.replace(/\s/g,'_')}-${si}" placeholder="+ Add item..." onkeydown="if(event.key==='Enter')addItem('${esc(listName)}',${si})" />
-            <button class="btn btn-primary btn-xs" onclick="addItem('${esc(listName)}',${si})">Add</button>
+            <input class="inline-input" id="ni-${listName.replace(/\W/g,'_')}-${si}" placeholder="+ Add item..." onkeydown="if(event.key==='Enter')manageAddItem('${esc(listName)}',${si})"/>
+            <button class="btn btn-primary btn-xs" onclick="manageAddItem('${esc(listName)}',${si})">Add</button>
           </div>
         </div>
       </div>`;
     });
-
-    html += `<div style="display:flex;gap:8px;margin-top:8px">
-      <input class="form-input" id="new-sec-${listName.replace(/\s/g,'_')}" placeholder="New section name..." style="flex:1;font-size:13px;padding:8px 12px" onkeydown="if(event.key==='Enter')addSection('${esc(listName)}')" />
-      <button class="btn btn-ghost btn-sm" onclick="addSection('${esc(listName)}')">Add section</button>
+    html+=`<div style="display:flex;gap:8px;margin-top:8px">
+      <input class="form-input" id="ns-${listName.replace(/\W/g,'_')}" placeholder="New section name..." style="flex:1;font-size:13px;padding:8px 12px" onkeydown="if(event.key==='Enter')manageAddSection('${esc(listName)}')" />
+      <button class="btn btn-ghost btn-sm" onclick="manageAddSection('${esc(listName)}')">Add section</button>
     </div></div>`;
   });
 
-  html += `<div style="display:flex;gap:8px;margin-top:20px">
-    <input class="form-input" id="new-list-name" placeholder="New checklist name (e.g. Generator check)..." style="flex:1;font-size:13px;padding:8px 12px" onkeydown="if(event.key==='Enter')addList()" />
-    <button class="btn btn-primary btn-sm" onclick="addList()">Add checklist</button>
+  html+=`<div style="display:flex;gap:8px;padding-top:20px;border-top:0.5px solid var(--border)">
+    <input class="form-input" id="new-list-name" placeholder="New checklist name (e.g. Generator check)..." style="flex:1;font-size:13px;padding:8px 12px" onkeydown="if(event.key==='Enter')manageAddList()" />
+    <button class="btn btn-primary btn-sm" onclick="manageAddList()">Add checklist</button>
   </div>`;
-  html += `</div>`;
 
-  document.getElementById('manage-content').innerHTML = html;
+  document.getElementById('manage-content').innerHTML=html;
 }
 
-// Manage mutations — all update local state then persist
+// ---- APPLY TO LISTS MODAL ----
+function openApplyModal(description, applyFn) {
+  const lists=Object.keys(fleetData[currentBoat].checklists||{});
+  document.getElementById('apply-modal-desc').textContent=description;
+  document.getElementById('apply-list-checks').innerHTML=lists.map(l=>`
+    <label class="list-check-row">
+      <input type="checkbox" value="${esc(l)}" checked />
+      <span class="list-check-label">${esc(l)}</span>
+    </label>`).join('');
+  pendingApply=applyFn;
+  openModal('modal-apply-lists');
+}
+
+function confirmApplyLists() {
+  const selected=Array.from(document.querySelectorAll('#apply-list-checks input:checked')).map(c=>c.value);
+  closeModal('modal-apply-lists');
+  if(pendingApply) pendingApply(selected);
+  pendingApply=null;
+}
+
 async function persist() {
-  await apiPost('updateBoatChecklists', {
-    name: currentBoat,
-    checklists: JSON.stringify(fleetData[currentBoat].checklists)
+  await apiPost('updateBoatChecklists',{name:currentBoat,checklists:JSON.stringify(fleetData[currentBoat].checklists)});
+}
+
+function manageSectionRename(list,si,val) {
+  const old=fleetData[currentBoat].checklists[list][si].section;
+  if(val===old||!val.trim()) return;
+  openApplyModal(`Rename section "${old}" → "${val}" on:`, selectedLists=>{
+    selectedLists.forEach(l=>{ if(fleetData[currentBoat].checklists[l]?.[si]) fleetData[currentBoat].checklists[l][si].section=val; });
+    persist(); renderManage(); showToast('Section renamed','success');
   });
 }
 
-function updateSectionName(list, si, val) {
-  fleetData[currentBoat].checklists[list][si].section = val;
-  persist();
-}
-function updateItemName(list, si, ii, val) {
-  fleetData[currentBoat].checklists[list][si].items[ii] = val;
-  persist();
-}
-function removeItem(list, si, ii) {
-  fleetData[currentBoat].checklists[list][si].items.splice(ii, 1);
-  persist(); renderManage();
-}
-function removeSection(list, si) {
-  if (!confirm('Remove this section?')) return;
-  fleetData[currentBoat].checklists[list].splice(si, 1);
-  persist(); renderManage();
-}
-function addItem(list, si) {
-  const id = `new-item-${list.replace(/\s/g,'_')}-${si}`;
-  const el = document.getElementById(id);
-  if (!el || !el.value.trim()) return;
-  fleetData[currentBoat].checklists[list][si].items.push(el.value.trim());
-  el.value = '';
-  persist(); renderManage();
-}
-function addSection(list) {
-  const id = `new-sec-${list.replace(/\s/g,'_')}`;
-  const el = document.getElementById(id);
-  if (!el || !el.value.trim()) return;
-  fleetData[currentBoat].checklists[list].push({ section: el.value.trim(), items: [] });
-  el.value = '';
-  persist(); renderManage();
-}
-function addList() {
-  const el = document.getElementById('new-list-name');
-  if (!el || !el.value.trim()) return;
-  const name = el.value.trim();
-  if (fleetData[currentBoat].checklists[name]) { showToast('List already exists'); return; }
-  fleetData[currentBoat].checklists[name] = [];
-  el.value = '';
-  persist(); renderManage();
-}
-function removeList(list) {
-  if (!confirm(`Remove the "${list}" checklist and all its history?`)) return;
-  delete fleetData[currentBoat].checklists[list];
-  persist(); renderManage();
+function manageItemRename(list,si,ii,val) {
+  const old=fleetData[currentBoat].checklists[list][si].items[ii];
+  if(val===old||!val.trim()) return;
+  openApplyModal(`Rename "${old}" → "${val}" on:`, selectedLists=>{
+    selectedLists.forEach(l=>{ const items=fleetData[currentBoat].checklists[l]?.[si]?.items; if(items&&items[ii]!==undefined) items[ii]=val; });
+    persist(); renderManage(); showToast('Item renamed','success');
+  });
 }
 
-// ---- INIT ----
+function manageRemoveItem(list,si,ii) {
+  const item=fleetData[currentBoat].checklists[list][si].items[ii];
+  openApplyModal(`Remove "${item}" from:`, selectedLists=>{
+    selectedLists.forEach(l=>{ const items=fleetData[currentBoat].checklists[l]?.[si]?.items; if(items) items.splice(ii,1); });
+    persist(); renderManage(); showToast('Item removed');
+  });
+}
+
+function manageRemoveSection(list,si) {
+  if(!confirm('Remove this section?')) return;
+  const name=fleetData[currentBoat].checklists[list][si].section;
+  openApplyModal(`Remove section "${name}" from:`, selectedLists=>{
+    selectedLists.forEach(l=>{ if(fleetData[currentBoat].checklists[l]?.[si]) fleetData[currentBoat].checklists[l].splice(si,1); });
+    persist(); renderManage(); showToast('Section removed');
+  });
+}
+
+function manageAddItem(list,si) {
+  const el=document.getElementById(`ni-${list.replace(/\W/g,'_')}-${si}`);
+  if(!el||!el.value.trim()) return;
+  const val=el.value.trim(); el.value='';
+  openApplyModal(`Add "${val}" to:`, selectedLists=>{
+    selectedLists.forEach(l=>{ if(fleetData[currentBoat].checklists[l]?.[si]) fleetData[currentBoat].checklists[l][si].items.push(val); });
+    persist(); renderManage(); showToast('Item added','success');
+  });
+}
+
+function manageAddSection(list) {
+  const el=document.getElementById(`ns-${list.replace(/\W/g,'_')}`);
+  if(!el||!el.value.trim()) return;
+  const val=el.value.trim(); el.value='';
+  openApplyModal(`Add section "${val}" to:`, selectedLists=>{
+    selectedLists.forEach(l=>{ if(fleetData[currentBoat].checklists[l]) fleetData[currentBoat].checklists[l].push({section:val,items:[]}); });
+    persist(); renderManage(); showToast('Section added','success');
+  });
+}
+
+function manageAddList() {
+  const el=document.getElementById('new-list-name');
+  if(!el||!el.value.trim()) return;
+  const name=el.value.trim();
+  if(fleetData[currentBoat].checklists[name]){showToast('Already exists');return;}
+  fleetData[currentBoat].checklists[name]=[];
+  el.value=''; persist(); renderManage(); showToast('Checklist added','success');
+}
+
+function removeList(list) {
+  if(!confirm(`Remove the "${list}" checklist?`)) return;
+  delete fleetData[currentBoat].checklists[list];
+  persist(); renderManage(); showToast('Checklist removed');
+}
+
 loadFleet();
 </script>
 </body>
