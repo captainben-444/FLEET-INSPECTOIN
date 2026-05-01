@@ -7,250 +7,221 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy: #0a1628; --navy-mid: #112240; --navy-light: #1a3357;
-  --teal: #0fb4a0; --teal-dim: #0d9a88; --teal-pale: rgba(15,180,160,0.1);
-  --gold: #c9a84c; --gold-dim: #a88834; --gold-pale: rgba(201,168,76,0.1);
-  --cream: #f5f1eb; --text-main: #f0ece4;
-  --text-muted: #8a9bb5; --text-dim: #4a5a70;
-  --danger: #e05555; --danger-pale: rgba(224,85,85,0.1);
-  --green: #0fb4a0; --green-pale: rgba(15,180,160,0.12);
-  --border: rgba(255,255,255,0.07); --border-mid: rgba(255,255,255,0.12);
-  --card-bg: rgba(255,255,255,0.04); --card-hover: rgba(255,255,255,0.07);
-  --radius: 12px; --radius-sm: 8px; --radius-xs: 5px;
+  --navy:#0a1628;--navy-mid:#112240;--navy-light:#1a3357;
+  --teal:#0fb4a0;--teal-dim:#0d9a88;--teal-pale:rgba(15,180,160,0.1);
+  --gold:#c9a84c;--gold-dim:#a88834;--gold-pale:rgba(201,168,76,0.1);
+  --cream:#f5f1eb;--text-main:#f0ece4;--text-muted:#8a9bb5;--text-dim:#4a5a70;
+  --danger:#e05555;--danger-pale:rgba(224,85,85,0.1);
+  --green-pale:rgba(15,180,160,0.12);
+  --border:rgba(255,255,255,0.07);--border-mid:rgba(255,255,255,0.12);
+  --card-bg:rgba(255,255,255,0.04);--card-hover:rgba(255,255,255,0.07);
+  --radius:12px;--radius-sm:8px;--radius-xs:5px;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--text-main); min-height: 100vh; font-size: 15px; line-height: 1.6; }
-body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 60% at 20% 10%, rgba(15,180,160,0.08) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 80%, rgba(201,168,76,0.06) 0%, transparent 60%); pointer-events: none; z-index: 0; }
-.app { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 20px 110px; }
-
-/* HEADER */
-.header { display: flex; align-items: center; justify-content: space-between; padding: 28px 0 32px; border-bottom: 0.5px solid var(--border); margin-bottom: 36px; }
-.logo-title { font-family: 'Instrument Serif', serif; font-size: 24px; color: var(--cream); letter-spacing: -0.3px; }
-.logo-sub { font-size: 11px; font-weight: 300; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-left: 10px; }
-
-/* BUTTONS */
-.btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s; border: none; white-space: nowrap; }
-.btn-primary { background: var(--teal); color: var(--navy); }
-.btn-primary:hover { background: var(--teal-dim); }
-.btn-gold { background: var(--gold); color: var(--navy); }
-.btn-gold:hover { background: var(--gold-dim); }
-.btn-ghost { background: transparent; color: var(--text-muted); border: 0.5px solid var(--border); }
-.btn-ghost:hover { background: var(--card-hover); color: var(--text-main); }
-.btn-danger { background: transparent; color: var(--danger); border: 0.5px solid rgba(224,85,85,0.3); }
-.btn-danger:hover { background: var(--danger-pale); }
-.btn-sm { padding: 5px 12px; font-size: 12px; }
-.btn-xs { padding: 3px 9px; font-size: 11px; }
-
-/* VIEWS */
-.view { display: none; }
-.view.active { display: block; }
-
-/* FLEET */
-.section-label { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
-.boats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-bottom: 28px; }
-.boat-card { background: var(--card-bg); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 20px 22px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
-.boat-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--teal); transform: scaleX(0); transition: transform 0.2s; transform-origin: left; }
-.boat-card:hover { background: var(--card-hover); }
-.boat-card:hover::after { transform: scaleX(1); }
-.boat-card-name { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--cream); margin-bottom: 4px; }
-.boat-card-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; }
-.boat-stat-num { font-size: 18px; font-weight: 500; color: var(--teal); }
-.boat-stat-lbl { font-size: 11px; color: var(--text-muted); }
-.add-boat-card { background: transparent; border: 0.5px dashed var(--text-dim); border-radius: var(--radius); padding: 20px 22px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--text-dim); font-size: 13px; min-height: 120px; }
-.add-boat-card:hover { border-color: var(--teal); color: var(--teal); background: rgba(15,180,160,0.04); }
-
-/* MODAL */
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.78); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
-.modal-overlay.open { display: flex; }
-.modal { background: var(--navy-mid); border: 0.5px solid var(--border-mid); border-radius: var(--radius); padding: 28px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
-.modal h3 { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--cream); margin-bottom: 6px; }
-.modal-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.5; }
-.form-group { margin-bottom: 16px; }
-.form-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; display: block; letter-spacing: 0.5px; }
-.form-input { width: 100%; background: rgba(255,255,255,0.05); border: 0.5px solid rgba(255,255,255,0.1); border-radius: var(--radius-sm); padding: 10px 14px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text-main); outline: none; transition: border-color 0.15s; }
-.form-input:focus { border-color: var(--teal); }
-.form-input::placeholder { color: var(--text-dim); }
-.modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
-.list-check-group { display: flex; flex-direction: column; gap: 8px; }
-.list-check-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: rgba(255,255,255,0.03); border: 0.5px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; }
-.list-check-row:hover { background: var(--card-hover); }
-.list-check-row input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--teal); cursor: pointer; flex-shrink: 0; }
-.list-check-label { font-size: 14px; color: var(--text-main); }
-
-/* BOAT HEADER */
-.back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); cursor: pointer; margin-bottom: 28px; transition: color 0.15s; background: none; border: none; padding: 0; font-family: 'DM Sans', sans-serif; }
-.back-btn:hover { color: var(--teal); }
-.boat-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; }
-.boat-header-left h1 { font-family: 'Instrument Serif', serif; font-size: 36px; color: var(--cream); letter-spacing: -0.5px; }
-.boat-header-left p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
-.boat-header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-
-/* TABS */
-.tabs-row { display: flex; gap: 4px; margin-bottom: 28px; border-bottom: 0.5px solid var(--border); overflow-x: auto; }
-.tab-btn { padding: 10px 20px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--text-muted); background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -0.5px; white-space: nowrap; transition: all 0.15s; }
-.tab-btn:hover { color: var(--text-main); }
-.tab-btn.active { color: var(--teal); border-bottom-color: var(--teal); }
-
-/* CHECKLIST */
-.progress-wrap { flex: 1; min-width: 200px; }
-.progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
-.progress-track { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
-.progress-fill { height: 100%; background: var(--teal); border-radius: 2px; transition: width 0.4s cubic-bezier(0.4,0,0.2,1); }
-.section-block { margin-bottom: 20px; }
-.section-head { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: rgba(255,255,255,0.03); border: 0.5px solid var(--border); border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
-.section-head-name { font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
-.section-head-count { font-size: 12px; color: var(--text-dim); }
-.section-items { border: 0.5px solid var(--border); border-top: none; border-radius: 0 0 var(--radius-sm) var(--radius-sm); overflow: hidden; }
-.checklist-row { display: flex; align-items: flex-start; gap: 12px; padding: 13px 16px; border-top: 0.5px solid var(--border); transition: background 0.15s; }
-.checklist-row:first-child { border-top: none; }
-.checklist-row:hover { background: var(--card-hover); }
-.checklist-row.done .item-text { text-decoration: line-through; color: var(--text-dim); }
-.check-box { width: 20px; height: 20px; border-radius: 5px; border: 1.5px solid var(--text-dim); flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-top: 2px; transition: all 0.15s; }
-.check-box:hover { border-color: var(--teal); }
-.check-box.checked { background: var(--teal); border-color: var(--teal); }
-.check-box svg { display: none; }
-.check-box.checked svg { display: block; }
-.item-content { flex: 1; min-width: 0; }
-.item-text { font-size: 14px; color: var(--text-main); }
-.item-note-display { font-size: 12px; color: var(--gold); margin-top: 4px; }
-.item-attachments { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-.attachment-thumb { width: 64px; height: 64px; border-radius: 6px; overflow: hidden; border: 0.5px solid var(--border); cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; position: relative; }
-.attachment-thumb img { width: 100%; height: 100%; object-fit: cover; }
-.attachment-thumb .video-badge { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.5); font-size: 22px; }
-.attachment-uploading { width: 64px; height: 64px; border-radius: 6px; border: 0.5px dashed var(--text-dim); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px; font-size: 10px; color: var(--text-dim); }
-.item-actions-row { display: flex; align-items: center; gap: 12px; margin-top: 6px; flex-wrap: wrap; }
-.action-link { font-size: 11px; color: var(--text-dim); background: none; border: none; cursor: pointer; padding: 0; font-family: 'DM Sans', sans-serif; transition: color 0.15s; display: inline-flex; align-items: center; gap: 4px; }
-.action-link:hover { color: var(--teal); }
-.action-link.gold:hover { color: var(--gold); }
-.note-textarea { width: 100%; margin-top: 8px; background: rgba(201,168,76,0.06); border: 0.5px solid rgba(201,168,76,0.25); border-radius: 6px; padding: 8px 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text-main); resize: none; min-height: 60px; outline: none; }
-.note-textarea::placeholder { color: var(--text-dim); }
-.note-save-row { display: flex; gap: 8px; margin-top: 6px; }
-.hidden-file { display: none; }
-.inline-input { background: transparent; border: none; border-bottom: 0.5px solid var(--text-dim); color: var(--text-main); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 2px 4px; outline: none; flex: 1; transition: border-color 0.15s; }
-.inline-input:focus { border-bottom-color: var(--teal); }
-.checklist-name-row { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 0.5px solid var(--border); }
-.checklist-name-row:last-child { border-bottom: none; }
-.edit-hint { font-size: 12px; color: var(--text-dim); margin-bottom: 20px; padding: 10px 14px; background: var(--teal-pale); border-left: 2px solid var(--teal); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
-
-/* SUBMIT BAR */
-.submit-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy-mid); border-top: 0.5px solid var(--border); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; z-index: 50; backdrop-filter: blur(10px); }
-.submit-info { font-size: 13px; color: var(--text-muted); }
-.submit-info strong { color: var(--text-main); }
-
-/* =============================================
-   HISTORY VIEW — rich inspection report style
-   ============================================= */
-.history-view-header {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
-}
-.history-filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
-.filter-tab { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; cursor: pointer; border: 0.5px solid var(--border); background: transparent; color: var(--text-muted); transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
-.filter-tab:hover { background: var(--card-hover); color: var(--text-main); }
-.filter-tab.active { background: var(--teal-pale); color: var(--teal); border-color: rgba(15,180,160,0.3); }
-
-.history-timeline { display: flex; flex-direction: column; gap: 16px; }
-.history-entry { background: var(--card-bg); border: 0.5px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: border-color 0.2s; }
-.history-entry:hover { border-color: var(--border-mid); }
-.history-entry.complete { border-left: 3px solid var(--teal); }
-.history-entry.partial  { border-left: 3px solid var(--gold); }
-
-/* Entry header — always visible */
-.entry-header { display: flex; align-items: center; gap: 14px; padding: 16px 20px; cursor: pointer; transition: background 0.15s; }
-.entry-header:hover { background: var(--card-hover); }
-.entry-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
-.entry-icon.complete { background: var(--green-pale); }
-.entry-icon.partial  { background: var(--gold-pale); }
-.entry-meta { flex: 1; min-width: 0; }
-.entry-title { font-size: 15px; font-weight: 500; color: var(--cream); }
-.entry-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-.entry-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-.entry-score { text-align: right; }
-.entry-score-num { font-size: 20px; font-weight: 500; color: var(--text-main); }
-.entry-score-lbl { font-size: 10px; color: var(--text-muted); }
-.entry-badge { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; }
-.badge-complete { background: var(--green-pale); color: var(--teal); }
-.badge-partial  { background: var(--gold-pale); color: var(--gold); }
-.entry-chevron { color: var(--text-dim); font-size: 14px; transition: transform 0.2s; }
-.entry-chevron.open { transform: rotate(90deg); }
-
-/* Progress mini bar in entry header */
-.entry-progress { height: 3px; background: rgba(255,255,255,0.06); margin: 0; }
-.entry-progress-fill { height: 100%; border-radius: 0; transition: width 0.4s; }
-.entry-progress-fill.complete { background: var(--teal); }
-.entry-progress-fill.partial  { background: var(--gold); }
-
-/* Entry body — expandable report */
-.entry-body { display: none; border-top: 0.5px solid var(--border); }
-.entry-body.open { display: block; }
-
-/* Section group inside report */
-.report-section { border-bottom: 0.5px solid var(--border); }
-.report-section:last-child { border-bottom: none; }
-.report-section-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: rgba(255,255,255,0.025); }
-.report-section-name { font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
-.report-section-score { font-size: 11px; color: var(--text-dim); }
-
-/* Individual item row in report */
-.report-item { display: flex; align-items: flex-start; gap: 12px; padding: 11px 20px; border-top: 0.5px solid rgba(255,255,255,0.04); transition: background 0.1s; }
-.report-item:hover { background: var(--card-hover); }
-.report-item:first-child { border-top: none; }
-.report-status { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; flex-shrink: 0; margin-top: 1px; }
-.report-status.pass { background: var(--green-pale); color: var(--teal); }
-.report-status.fail { background: var(--danger-pale); color: var(--danger); }
-.report-item-body { flex: 1; min-width: 0; }
-.report-item-label { font-size: 13px; color: var(--text-main); line-height: 1.4; }
-.report-item-label.failed { color: var(--text-muted); text-decoration: line-through; }
-.report-item-note { display: flex; align-items: flex-start; gap: 5px; font-size: 12px; color: var(--gold); margin-top: 5px; line-height: 1.4; padding: 5px 8px; background: var(--gold-pale); border-radius: var(--radius-xs); }
-.report-item-media { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-.report-photo { width: 80px; height: 80px; border-radius: var(--radius-xs); object-fit: cover; cursor: pointer; border: 0.5px solid var(--border); transition: transform 0.15s, border-color 0.15s; }
-.report-photo:hover { transform: scale(1.04); border-color: var(--teal); }
-.report-video-link { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: rgba(15,180,160,0.08); border: 0.5px solid rgba(15,180,160,0.25); border-radius: var(--radius-xs); font-size: 12px; color: var(--teal); text-decoration: none; transition: background 0.15s; }
-.report-video-link:hover { background: rgba(15,180,160,0.15); }
-
-/* Summary bar at bottom of report */
-.report-summary { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; background: rgba(255,255,255,0.025); flex-wrap: wrap; gap: 8px; }
-.report-summary-text { font-size: 13px; font-weight: 500; }
-.report-summary-text.complete { color: var(--teal); }
-.report-summary-text.partial  { color: var(--gold); }
-.report-summary-stats { display: flex; gap: 16px; }
-.report-stat { text-align: center; }
-.report-stat-num { font-size: 16px; font-weight: 500; color: var(--text-main); }
-.report-stat-lbl { font-size: 10px; color: var(--text-muted); }
-
-/* Photo count badge */
-.photo-count-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--text-muted); margin-top: 4px; }
-
-/* Empty state */
-.empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
-.empty-state-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.4; }
-.empty-state-title { font-size: 15px; color: var(--text-main); margin-bottom: 6px; }
-.empty-state-sub { font-size: 13px; }
-
-/* TOAST */
-.toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--navy-light); border: 0.5px solid var(--border-mid); border-radius: var(--radius-sm); padding: 10px 20px; font-size: 13px; color: var(--text-main); opacity: 0; transition: all 0.3s; z-index: 200; white-space: nowrap; pointer-events: none; }
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-.toast.success { border-color: rgba(15,180,160,0.4); }
-.toast.error   { border-color: rgba(224,85,85,0.4); }
-
-/* LOADING */
-.loading { display: flex; align-items: center; justify-content: center; padding: 40px; color: var(--text-muted); font-size: 13px; gap: 10px; }
-.spinner { width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--teal); border-radius: 50%; animation: spin 0.7s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* LIGHTBOX */
-.lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.94); z-index: 300; align-items: center; justify-content: center; flex-direction: column; gap: 12px; }
-.lightbox.open { display: flex; }
-.lightbox img { max-width: 92vw; max-height: 82vh; border-radius: var(--radius-sm); }
-.lightbox-close { position: absolute; top: 20px; right: 24px; font-size: 32px; color: var(--text-muted); cursor: pointer; background: none; border: none; line-height: 1; }
-.lightbox-caption { font-size: 13px; color: var(--text-muted); }
-
-@media (max-width: 600px) {
-  .header { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .boat-header { flex-direction: column; align-items: flex-start; }
-  .submit-bar { flex-direction: column; align-items: stretch; text-align: center; }
-  .entry-header { gap: 10px; }
-  .entry-score-num { font-size: 16px; }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--text-main);min-height:100vh;font-size:15px;line-height:1.6;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(15,180,160,0.08) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 80% 80%,rgba(201,168,76,0.06) 0%,transparent 60%);pointer-events:none;z-index:0;}
+.app{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:0 20px 120px;}
+.header{display:flex;align-items:center;justify-content:space-between;padding:28px 0 32px;border-bottom:0.5px solid var(--border);margin-bottom:36px;}
+.logo-title{font-family:'Instrument Serif',serif;font-size:24px;color:var(--cream);letter-spacing:-0.3px;}
+.logo-sub{font-size:11px;font-weight:300;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;margin-left:10px;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s;border:none;white-space:nowrap;}
+.btn-primary{background:var(--teal);color:var(--navy);}
+.btn-primary:hover{background:var(--teal-dim);}
+.btn-gold{background:var(--gold);color:var(--navy);}
+.btn-gold:hover{background:var(--gold-dim);}
+.btn-ghost{background:transparent;color:var(--text-muted);border:0.5px solid var(--border);}
+.btn-ghost:hover{background:var(--card-hover);color:var(--text-main);}
+.btn-danger{background:transparent;color:var(--danger);border:0.5px solid rgba(224,85,85,0.3);}
+.btn-danger:hover{background:var(--danger-pale);}
+.btn-sm{padding:5px 12px;font-size:12px;}
+.btn-xs{padding:3px 9px;font-size:11px;}
+.view{display:none;}.view.active{display:block;}
+.section-label{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
+.boats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:28px;}
+.boat-card{background:var(--card-bg);border:0.5px solid var(--border);border-radius:var(--radius);padding:20px 22px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
+.boat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--teal);transform:scaleX(0);transition:transform 0.2s;transform-origin:left;}
+.boat-card:hover{background:var(--card-hover);}
+.boat-card:hover::after{transform:scaleX(1);}
+.boat-card-name{font-family:'Instrument Serif',serif;font-size:20px;color:var(--cream);margin-bottom:4px;}
+.boat-card-meta{font-size:12px;color:var(--text-muted);margin-bottom:14px;}
+.boat-stat-num{font-size:18px;font-weight:500;color:var(--teal);}
+.boat-stat-lbl{font-size:11px;color:var(--text-muted);}
+.add-boat-card{background:transparent;border:0.5px dashed var(--text-dim);border-radius:var(--radius);padding:20px 22px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--text-dim);font-size:13px;min-height:120px;}
+.add-boat-card:hover{border-color:var(--teal);color:var(--teal);background:rgba(15,180,160,0.04);}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.78);z-index:100;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--navy-mid);border:0.5px solid var(--border-mid);border-radius:var(--radius);padding:28px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;}
+.modal h3{font-family:'Instrument Serif',serif;font-size:20px;color:var(--cream);margin-bottom:6px;}
+.modal-subtitle{font-size:13px;color:var(--text-muted);margin-bottom:20px;line-height:1.5;}
+.form-group{margin-bottom:16px;}
+.form-label{font-size:12px;color:var(--text-muted);margin-bottom:6px;display:block;letter-spacing:0.5px;}
+.form-input{width:100%;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:var(--radius-sm);padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text-main);outline:none;transition:border-color 0.15s;}
+.form-input:focus{border-color:var(--teal);}
+.form-input::placeholder{color:var(--text-dim);}
+.modal-footer{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;}
+.list-check-group{display:flex;flex-direction:column;gap:8px;}
+.list-check-row{display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(255,255,255,0.03);border:0.5px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;}
+.list-check-row:hover{background:var(--card-hover);}
+.list-check-row input[type=checkbox]{width:16px;height:16px;accent-color:var(--teal);cursor:pointer;flex-shrink:0;}
+.list-check-label{font-size:14px;color:var(--text-main);}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text-muted);cursor:pointer;margin-bottom:28px;transition:color 0.15s;background:none;border:none;padding:0;font-family:'DM Sans',sans-serif;}
+.back-btn:hover{color:var(--teal);}
+.boat-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:16px;}
+.boat-header-left h1{font-family:'Instrument Serif',serif;font-size:36px;color:var(--cream);letter-spacing:-0.5px;}
+.boat-name-edit-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+.boat-name-display{font-family:'Instrument Serif',serif;font-size:36px;color:var(--cream);letter-spacing:-0.5px;}
+.boat-desc-display{font-size:13px;color:var(--text-muted);}
+.boat-desc-edit-row{display:flex;align-items:center;gap:8px;margin-top:6px;}
+.desc-input{background:rgba(255,255,255,0.05);border:0.5px solid var(--teal);border-radius:var(--radius-sm);padding:6px 10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-main);outline:none;min-width:220px;}
+.icon-btn{background:none;border:none;cursor:pointer;color:var(--text-dim);font-size:14px;padding:4px 6px;border-radius:var(--radius-xs);transition:color 0.15s;}
+.icon-btn:hover{color:var(--teal);}
+.boat-header-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.tabs-row{display:flex;gap:4px;margin-bottom:28px;border-bottom:0.5px solid var(--border);overflow-x:auto;}
+.tab-btn{padding:10px 20px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--text-muted);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-0.5px;white-space:nowrap;transition:all 0.15s;}
+.tab-btn:hover{color:var(--text-main);}
+.tab-btn.active{color:var(--teal);border-bottom-color:var(--teal);}
+.progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:6px;}
+.progress-track{height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--teal);border-radius:2px;transition:width 0.4s cubic-bezier(0.4,0,0.2,1);}
+.section-block{margin-bottom:20px;}
+.section-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:rgba(255,255,255,0.03);border:0.5px solid var(--border);border-radius:var(--radius-sm) var(--radius-sm) 0 0;}
+.section-head-name{font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);}
+.section-head-count{font-size:12px;color:var(--text-dim);}
+.section-items{border:0.5px solid var(--border);border-top:none;border-radius:0 0 var(--radius-sm) var(--radius-sm);overflow:hidden;}
+.checklist-row{display:flex;align-items:flex-start;gap:12px;padding:13px 16px;border-top:0.5px solid var(--border);transition:background 0.15s;}
+.checklist-row:first-child{border-top:none;}
+.checklist-row:hover{background:var(--card-hover);}
+.checklist-row.done .item-text{text-decoration:line-through;color:var(--text-dim);}
+.check-box{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--text-dim);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-top:2px;transition:all 0.15s;}
+.check-box:hover{border-color:var(--teal);}
+.check-box.checked{background:var(--teal);border-color:var(--teal);}
+.check-box svg{display:none;}
+.check-box.checked svg{display:block;}
+.item-content{flex:1;min-width:0;}
+.item-text{font-size:14px;color:var(--text-main);}
+.item-note-display{font-size:12px;color:var(--gold);margin-top:4px;}
+.item-attachments{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.attachment-thumb{width:64px;height:64px;border-radius:6px;overflow:hidden;border:0.5px solid var(--border);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;}
+.attachment-thumb img{width:100%;height:100%;object-fit:cover;}
+.attachment-thumb .video-badge{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);font-size:22px;}
+.attachment-uploading{width:64px;height:64px;border-radius:6px;border:0.5px dashed var(--text-dim);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;font-size:10px;color:var(--text-dim);}
+.item-actions-row{display:flex;align-items:center;gap:12px;margin-top:6px;flex-wrap:wrap;}
+.action-link{font-size:11px;color:var(--text-dim);background:none;border:none;cursor:pointer;padding:0;font-family:'DM Sans',sans-serif;transition:color 0.15s;display:inline-flex;align-items:center;gap:4px;}
+.action-link:hover{color:var(--teal);}
+.action-link.gold:hover{color:var(--gold);}
+.note-textarea{width:100%;margin-top:8px;background:rgba(201,168,76,0.06);border:0.5px solid rgba(201,168,76,0.25);border-radius:6px;padding:8px 10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-main);resize:none;min-height:60px;outline:none;}
+.note-textarea::placeholder{color:var(--text-dim);}
+.note-save-row{display:flex;gap:8px;margin-top:6px;}
+.hidden-file{display:none;}
+/* NOTIFY PANEL */
+.notify-panel{background:rgba(255,255,255,0.03);border:0.5px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;margin-top:24px;}
+.notify-panel-title{font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;}
+.notify-contacts{display:flex;flex-direction:column;gap:8px;}
+.notify-contact-row{display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(255,255,255,0.03);border:0.5px solid var(--border);border-radius:var(--radius-xs);cursor:pointer;transition:background 0.15s;}
+.notify-contact-row:hover{background:var(--card-hover);}
+.notify-contact-row input[type=checkbox]{width:16px;height:16px;accent-color:var(--teal);cursor:pointer;flex-shrink:0;}
+.notify-contact-name{font-size:13px;color:var(--text-main);flex:1;}
+.notify-contact-detail{font-size:11px;color:var(--text-muted);}
+.notify-empty{font-size:13px;color:var(--text-dim);padding:6px 0;}
+.submit-bar{position:fixed;bottom:0;left:0;right:0;background:var(--navy-mid);border-top:0.5px solid var(--border);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;z-index:50;backdrop-filter:blur(10px);}
+.submit-info{font-size:13px;color:var(--text-muted);}
+.submit-info strong{color:var(--text-main);}
+/* HISTORY */
+.history-view-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+.history-filter-tabs{display:flex;gap:6px;flex-wrap:wrap;}
+.filter-tab{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:0.5px solid var(--border);background:transparent;color:var(--text-muted);transition:all 0.15s;font-family:'DM Sans',sans-serif;}
+.filter-tab:hover{background:var(--card-hover);color:var(--text-main);}
+.filter-tab.active{background:var(--teal-pale);color:var(--teal);border-color:rgba(15,180,160,0.3);}
+.history-timeline{display:flex;flex-direction:column;gap:16px;}
+.history-entry{background:var(--card-bg);border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color 0.2s;}
+.history-entry:hover{border-color:var(--border-mid);}
+.history-entry.complete{border-left:3px solid var(--teal);}
+.history-entry.partial{border-left:3px solid var(--gold);}
+.entry-header{display:flex;align-items:center;gap:14px;padding:16px 20px;cursor:pointer;transition:background 0.15s;}
+.entry-header:hover{background:var(--card-hover);}
+.entry-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.entry-icon.complete{background:var(--green-pale);}
+.entry-icon.partial{background:var(--gold-pale);}
+.entry-meta{flex:1;min-width:0;}
+.entry-title{font-size:15px;font-weight:500;color:var(--cream);}
+.entry-subtitle{font-size:12px;color:var(--text-muted);margin-top:2px;}
+.entry-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.entry-score{text-align:right;}
+.entry-score-num{font-size:20px;font-weight:500;color:var(--text-main);}
+.entry-score-lbl{font-size:10px;color:var(--text-muted);}
+.entry-badge{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500;}
+.badge-complete{background:var(--green-pale);color:var(--teal);}
+.badge-partial{background:var(--gold-pale);color:var(--gold);}
+.entry-chevron{color:var(--text-dim);font-size:14px;transition:transform 0.2s;}
+.entry-chevron.open{transform:rotate(90deg);}
+.entry-progress{height:3px;background:rgba(255,255,255,0.06);}
+.entry-progress-fill{height:100%;transition:width 0.4s;}
+.entry-progress-fill.complete{background:var(--teal);}
+.entry-progress-fill.partial{background:var(--gold);}
+.entry-body{display:none;border-top:0.5px solid var(--border);}
+.entry-body.open{display:block;}
+.report-section{border-bottom:0.5px solid var(--border);}
+.report-section:last-child{border-bottom:none;}
+.report-section-header{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:rgba(255,255,255,0.025);}
+.report-section-name{font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);}
+.report-section-score{font-size:11px;color:var(--text-dim);}
+.report-item{display:flex;align-items:flex-start;gap:12px;padding:11px 20px;border-top:0.5px solid rgba(255,255,255,0.04);transition:background 0.1s;}
+.report-item:hover{background:var(--card-hover);}
+.report-item:first-child{border-top:none;}
+.report-status{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0;margin-top:1px;}
+.report-status.pass{background:var(--green-pale);color:var(--teal);}
+.report-status.fail{background:var(--danger-pale);color:var(--danger);}
+.report-item-body{flex:1;min-width:0;}
+.report-item-label{font-size:13px;color:var(--text-main);line-height:1.4;}
+.report-item-label.failed{color:var(--text-muted);text-decoration:line-through;}
+.report-item-note{display:flex;align-items:flex-start;gap:5px;font-size:12px;color:var(--gold);margin-top:5px;padding:5px 8px;background:var(--gold-pale);border-radius:var(--radius-xs);}
+.report-item-media{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+.report-photo{width:80px;height:80px;border-radius:var(--radius-xs);object-fit:cover;cursor:pointer;border:0.5px solid var(--border);transition:transform 0.15s,border-color 0.15s;}
+.report-photo:hover{transform:scale(1.04);border-color:var(--teal);}
+.report-video-link{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(15,180,160,0.08);border:0.5px solid rgba(15,180,160,0.25);border-radius:var(--radius-xs);font-size:12px;color:var(--teal);text-decoration:none;}
+.report-video-link:hover{background:rgba(15,180,160,0.15);}
+.report-summary{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,0.025);flex-wrap:wrap;gap:8px;}
+.report-summary-text{font-size:13px;font-weight:500;}
+.report-summary-text.complete{color:var(--teal);}
+.report-summary-text.partial{color:var(--gold);}
+.report-summary-stats{display:flex;gap:16px;}
+.report-stat{text-align:center;}
+.report-stat-num{font-size:16px;font-weight:500;color:var(--text-main);}
+.report-stat-lbl{font-size:10px;color:var(--text-muted);}
+.empty-state{text-align:center;padding:60px 20px;color:var(--text-muted);}
+.empty-state-icon{font-size:40px;margin-bottom:12px;opacity:0.4;}
+.empty-state-title{font-size:15px;color:var(--text-main);margin-bottom:6px;}
+.empty-state-sub{font-size:13px;}
+/* MANAGE */
+.inline-input{background:transparent;border:none;border-bottom:0.5px solid var(--text-dim);color:var(--text-main);font-family:'DM Sans',sans-serif;font-size:14px;padding:2px 4px;outline:none;flex:1;transition:border-color 0.15s;}
+.inline-input:focus{border-bottom-color:var(--teal);}
+.checklist-name-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--border);}
+.checklist-name-row:last-child{border-bottom:none;}
+.edit-hint{font-size:12px;color:var(--text-dim);margin-bottom:20px;padding:10px 14px;background:var(--teal-pale);border-left:2px solid var(--teal);border-radius:0 var(--radius-sm) var(--radius-sm) 0;}
+/* CONTACTS */
+.contact-card{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card-bg);border:0.5px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;}
+.contact-avatar{width:32px;height:32px;border-radius:50%;background:var(--teal-pale);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--teal);flex-shrink:0;}
+.contact-info{flex:1;min-width:0;}
+.contact-name{font-size:13px;color:var(--text-main);}
+.contact-detail{font-size:11px;color:var(--text-muted);}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy-light);border:0.5px solid var(--border-mid);border-radius:var(--radius-sm);padding:10px 20px;font-size:13px;color:var(--text-main);opacity:0;transition:all 0.3s;z-index:200;white-space:nowrap;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.success{border-color:rgba(15,180,160,0.4);}
+.toast.error{border-color:rgba(224,85,85,0.4);}
+.loading{display:flex;align-items:center;justify-content:center;padding:40px;color:var(--text-muted);font-size:13px;gap:10px;}
+.spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--teal);border-radius:50%;animation:spin 0.7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.94);z-index:300;align-items:center;justify-content:center;flex-direction:column;gap:12px;}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:92vw;max-height:82vh;border-radius:var(--radius-sm);}
+.lightbox-close{position:absolute;top:20px;right:24px;font-size:32px;color:var(--text-muted);cursor:pointer;background:none;border:none;line-height:1;}
+.lightbox-caption{font-size:13px;color:var(--text-muted);}
+@media(max-width:600px){
+  .header{flex-direction:column;align-items:flex-start;gap:12px;}
+  .boat-header{flex-direction:column;align-items:flex-start;}
+  .submit-bar{flex-direction:column;align-items:stretch;text-align:center;}
+  .entry-header{gap:10px;}
+  .entry-score-num{font-size:16px;}
 }
 </style>
 </head>
@@ -279,10 +250,19 @@ body::before { content: ''; position: fixed; inset: 0; background: radial-gradie
     </button>
     <div class="boat-header">
       <div class="boat-header-left">
-        <h1 id="boat-detail-name"></h1>
-        <p id="boat-detail-meta"></p>
+        <div class="boat-name-display" id="boat-detail-name"></div>
+        <div id="boat-desc-area">
+          <div class="boat-desc-display" id="boat-detail-meta"></div>
+          <button class="icon-btn" onclick="startEditDesc()" title="Edit description" style="margin-top:4px">✏ Edit description</button>
+        </div>
+        <div class="boat-desc-edit-row" id="boat-desc-edit" style="display:none">
+          <input class="desc-input" id="boat-desc-input" placeholder="e.g. Twin Volvo IPS, 2019" />
+          <button class="btn btn-primary btn-xs" onclick="saveDesc()">Save</button>
+          <button class="btn btn-ghost btn-xs" onclick="cancelEditDesc()">Cancel</button>
+        </div>
       </div>
       <div class="boat-header-actions">
+        <button class="btn btn-ghost btn-sm" onclick="showContacts()">Contacts</button>
         <button class="btn btn-ghost btn-sm" onclick="showManage()">Manage checklists</button>
         <button class="btn btn-danger btn-sm" onclick="confirmRemoveBoat()">Remove boat</button>
       </div>
@@ -297,7 +277,6 @@ body::before { content: ''; position: fixed; inset: 0; background: radial-gradie
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Back to inspection
     </button>
-
     <div class="history-view-header">
       <div>
         <p class="section-label" style="margin-bottom:4px" id="history-boat-label"></p>
@@ -305,10 +284,17 @@ body::before { content: ''; position: fixed; inset: 0; background: radial-gradie
       </div>
       <div id="history-summary-chips"></div>
     </div>
+    <div id="history-content"><div class="loading"><div class="spinner"></div> Loading inspections...</div></div>
+  </div>
 
-    <div id="history-content">
-      <div class="loading"><div class="spinner"></div> Loading inspections...</div>
-    </div>
+  <!-- CONTACTS VIEW -->
+  <div class="view" id="view-contacts">
+    <button class="back-btn" onclick="showBoatDetail(currentBoat)">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to inspection
+    </button>
+    <p class="section-label" id="contacts-label"></p>
+    <div id="contacts-content"></div>
   </div>
 
   <!-- MANAGE VIEW -->
@@ -340,12 +326,36 @@ body::before { content: ''; position: fixed; inset: 0; background: radial-gradie
       <input class="form-input" id="new-boat-name" placeholder="e.g. Lady M, Grady White 32'" onkeydown="if(event.key==='Enter')addBoat()" />
     </div>
     <div class="form-group">
-      <label class="form-label">Notes (optional)</label>
+      <label class="form-label">Description (optional)</label>
       <input class="form-input" id="new-boat-notes" placeholder="e.g. Twin Volvo IPS, 2019" />
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal('modal-add-boat')">Cancel</button>
       <button class="btn btn-primary" onclick="addBoat()">Add boat</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD CONTACT MODAL -->
+<div class="modal-overlay" id="modal-add-contact">
+  <div class="modal">
+    <h3>Add contact</h3>
+    <p class="modal-subtitle">Contacts can receive email summaries when an inspection is submitted.</p>
+    <div class="form-group">
+      <label class="form-label">Name</label>
+      <input class="form-input" id="contact-name" placeholder="e.g. John Smith" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email address</label>
+      <input class="form-input" id="contact-email" type="email" placeholder="john@example.com" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Phone (optional — for SMS-to-email)</label>
+      <input class="form-input" id="contact-phone" placeholder="e.g. 5551234567@vtext.com" />
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-add-contact')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveContact()">Add contact</button>
     </div>
   </div>
 </div>
@@ -370,518 +380,186 @@ body::before { content: ''; position: fixed; inset: 0; background: radial-gradie
   <div class="lightbox-caption" id="lightbox-caption"></div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ============================================================
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzXcSDuWo92sGq4WWUKonFt4uBFgZyJuH0NgYPPL54sSOcYP8nxIlZ0FckquQ1d_YKR/exec';
-// ============================================================
 
-let fleetData = {};
-let currentBoat = null;
-let currentList = null;
-let checkState  = {};
-let pendingApply = null;
+let fleetData={},currentBoat=null,currentList=null,checkState={},pendingApply=null,historyCache={},currentHistoryList=null;
+let editingDesc=false;
 
-// All history data cached per boat
-let historyCache = {}; // { boatName: { listName: [...entries] } }
-let currentHistoryList = null;
-
-function itemKey(list, si, ii) { return `${list}||${si}||${ii}`; }
-
-function showToast(msg, type='') {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.className = 'toast show ' + type;
-  setTimeout(() => t.className = 'toast', 3200);
-}
-
-function showView(name) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById('view-' + name).classList.add('active');
-  document.getElementById('submit-bar').style.display = (name === 'boat') ? 'flex' : 'none';
-}
-
-function openModal(id)  { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
-async function api(action, payload={}) {
-  const params = new URLSearchParams({ action, ...payload });
-  const res = await fetch(SCRIPT_URL + '?' + params);
-  return res.json();
-}
-async function apiPost(action, payload={}) {
-  const res = await fetch(SCRIPT_URL, {
-    method: 'POST', headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify({ action, ...payload })
-  });
-  return res.json();
-}
+function itemKey(l,si,ii){return`${l}||${si}||${ii}`;}
+function showToast(msg,type=''){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show '+type;setTimeout(()=>t.className='toast',3200);}
+function showView(name){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById('view-'+name).classList.add('active');document.getElementById('submit-bar').style.display=(name==='boat')?'flex':'none';}
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+async function api(action,payload={}){const p=new URLSearchParams({action,...payload});const r=await fetch(SCRIPT_URL+'?'+p);return r.json();}
+async function apiPost(action,payload={}){const r=await fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action,...payload})});return r.json();}
 
 // ---- FLEET ----
-async function loadFleet() {
-  try {
-    const data = await api('getFleet');
-    fleetData = data.fleet || {};
-    renderFleet();
-  } catch(e) {
-    document.getElementById('boats-grid').innerHTML =
-      `<div style="color:var(--danger);font-size:13px;padding:20px 0">Could not connect. Check your SCRIPT_URL.</div>`;
-  }
-}
+async function loadFleet(){try{const d=await api('getFleet');fleetData=d.fleet||{};renderFleet();}catch(e){document.getElementById('boats-grid').innerHTML='<div style="color:var(--danger);font-size:13px;padding:20px 0">Could not connect. Check your SCRIPT_URL.</div>';}}
+function renderFleet(){const boats=Object.keys(fleetData);let html=boats.map(name=>{const b=fleetData[name];const lc=Object.keys(b.checklists||{}).length;return`<div class="boat-card" onclick="showBoatDetail('${esc(name)}')"><div class="boat-card-name">${esc(name)}</div><div class="boat-card-meta">${esc(b.notes)||'No description'}</div><div style="display:flex;gap:16px"><div><div class="boat-stat-num">${lc}</div><div class="boat-stat-lbl">Checklists</div></div></div></div>`;}).join('');html+=`<div class="add-boat-card" onclick="openModal('modal-add-boat')"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 3v12M3 9h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Add boat</div>`;document.getElementById('boats-grid').innerHTML=html;}
+async function addBoat(){const name=document.getElementById('new-boat-name').value.trim();const notes=document.getElementById('new-boat-notes').value.trim();if(!name)return;closeModal('modal-add-boat');showToast('Adding boat…');await apiPost('addBoat',{name,notes});await loadFleet();document.getElementById('new-boat-name').value='';document.getElementById('new-boat-notes').value='';showToast('Boat added','success');}
+async function confirmRemoveBoat(){if(!confirm(`Remove "${currentBoat}" and ALL its data?`))return;await apiPost('removeBoat',{name:currentBoat});await loadFleet();showView('fleet');showToast('Boat removed');}
 
-function renderFleet() {
-  const boats = Object.keys(fleetData);
-  let html = boats.map(name => {
-    const b = fleetData[name];
-    const listCount = Object.keys(b.checklists||{}).length;
-    return `<div class="boat-card" onclick="showBoatDetail('${esc(name)}')">
-      <div class="boat-card-name">${esc(name)}</div>
-      <div class="boat-card-meta">${esc(b.notes)||'No notes'}</div>
-      <div style="display:flex;gap:16px">
-        <div><div class="boat-stat-num">${listCount}</div><div class="boat-stat-lbl">Checklists</div></div>
-      </div>
-    </div>`;
-  }).join('');
-  html += `<div class="add-boat-card" onclick="openModal('modal-add-boat')">
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 3v12M3 9h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-    Add boat
-  </div>`;
-  document.getElementById('boats-grid').innerHTML = html;
+// ---- BOAT DESC EDIT ----
+function startEditDesc(){
+  document.getElementById('boat-desc-area').style.display='none';
+  document.getElementById('boat-desc-edit').style.display='flex';
+  document.getElementById('boat-desc-input').value=fleetData[currentBoat].notes||'';
+  document.getElementById('boat-desc-input').focus();
 }
-
-async function addBoat() {
-  const name  = document.getElementById('new-boat-name').value.trim();
-  const notes = document.getElementById('new-boat-notes').value.trim();
-  if (!name) return;
-  closeModal('modal-add-boat');
-  showToast('Adding boat…');
-  await apiPost('addBoat', { name, notes });
+function cancelEditDesc(){
+  document.getElementById('boat-desc-area').style.display='block';
+  document.getElementById('boat-desc-edit').style.display='none';
+}
+async function saveDesc(){
+  const val=document.getElementById('boat-desc-input').value.trim();
+  fleetData[currentBoat].notes=val;
+  document.getElementById('boat-detail-meta').textContent=val||'No description';
+  cancelEditDesc();
+  showToast('Description saved','success');
+  await apiPost('updateBoatNotes',{name:currentBoat,notes:val});
+  // refresh fleet card too
   await loadFleet();
-  document.getElementById('new-boat-name').value = '';
-  document.getElementById('new-boat-notes').value = '';
-  showToast('Boat added', 'success');
-}
-
-async function confirmRemoveBoat() {
-  if (!confirm(`Remove "${currentBoat}" and ALL its data?`)) return;
-  await apiPost('removeBoat', { name: currentBoat });
-  await loadFleet();
-  showView('fleet');
-  showToast('Boat removed');
 }
 
 // ---- BOAT DETAIL ----
-function showBoatDetail(name) {
-  currentBoat = name; checkState = {};
-  const b = fleetData[name];
-  document.getElementById('boat-detail-name').textContent = name;
-  document.getElementById('boat-detail-meta').textContent = b.notes || '';
-  const lists = Object.keys(b.checklists||{});
-  currentList = lists[0] || null;
-  renderBoatTabs(); renderChecklist(); showView('boat'); updateSubmitBar();
-}
+function showBoatDetail(name){currentBoat=name;checkState={};const b=fleetData[name];document.getElementById('boat-detail-name').textContent=name;document.getElementById('boat-detail-meta').textContent=b.notes||'No description';cancelEditDesc();const lists=Object.keys(b.checklists||{});currentList=lists[0]||null;renderBoatTabs();renderChecklist();showView('boat');updateSubmitBar();}
+function renderBoatTabs(){const lists=Object.keys(fleetData[currentBoat].checklists||{});document.getElementById('boat-tabs').innerHTML=lists.map(l=>`<button class="tab-btn ${l===currentList?'active':''}" onclick="switchList('${esc(l)}')">${esc(l)}</button>`).join('');}
+function switchList(l){currentList=l;renderBoatTabs();renderChecklist();updateSubmitBar();}
 
-function renderBoatTabs() {
-  const lists = Object.keys(fleetData[currentBoat].checklists||{});
-  document.getElementById('boat-tabs').innerHTML = lists.map(l =>
-    `<button class="tab-btn ${l===currentList?'active':''}" onclick="switchList('${esc(l)}')">${esc(l)}</button>`
-  ).join('');
-}
-
-function switchList(l) { currentList=l; renderBoatTabs(); renderChecklist(); updateSubmitBar(); }
-
-function renderChecklist() {
-  const sections = fleetData[currentBoat].checklists[currentList]||[];
-  let total=0, done=0;
-  sections.forEach((s,si)=>s.items.forEach((_,ii)=>{ total++; if(checkState[itemKey(currentList,si,ii)]?.checked) done++; }));
-  const pct = total ? Math.round(done/total*100) : 0;
-
-  let html = `<div style="margin-bottom:20px">
-    <div class="progress-label"><span>${esc(currentList)}</span><span>${done}/${total} complete</span></div>
-    <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
-  </div>`;
-
-  sections.forEach((sec,si) => {
-    const secDone = sec.items.filter((_,ii)=>checkState[itemKey(currentList,si,ii)]?.checked).length;
-    html += `<div class="section-block">
-      <div class="section-head">
-        <span class="section-head-name">${esc(sec.section)}</span>
-        <span class="section-head-count">${secDone}/${sec.items.length}</span>
-      </div>
-      <div class="section-items">`;
-    sec.items.forEach((item,ii) => {
-      const k  = itemKey(currentList,si,ii);
-      const st = checkState[k]||{};
-      const attachments = st.attachments||[];
-      let thumbs = attachments.map(a => a.type==='image'
-        ? `<div class="attachment-thumb" onclick="openLightbox('${esc(a.url)}','')"><img src="${esc(a.url)}" loading="lazy"/></div>`
-        : `<a class="attachment-thumb" href="${esc(a.url)}" target="_blank" rel="noopener"><div class="video-badge">▶</div></a>`
-      ).join('');
-      if (st.uploading) thumbs += `<div class="attachment-uploading"><div class="spinner" style="width:14px;height:14px;border-width:1.5px"></div><span>Uploading</span></div>`;
-
-      html += `<div class="checklist-row ${st.checked?'done':''}">
-        <div class="check-box ${st.checked?'checked':''}" onclick="toggleCheck(${si},${ii})">
-          <svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4L4 7.5L10 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="item-content">
-          <div class="item-text">${esc(item)}</div>
-          ${st.note&&!st.editingNote?`<div class="item-note-display">📝 ${esc(st.note)}</div>`:''}
-          ${attachments.length||st.uploading?`<div class="item-attachments">${thumbs}</div>`:''}
-          ${st.editingNote?`
-            <textarea class="note-textarea" id="note-ta-${si}-${ii}" placeholder="Add a note...">${esc(st.note||'')}</textarea>
-            <div class="note-save-row">
-              <button class="btn btn-xs" style="background:var(--gold-pale);color:var(--gold);border:none" onclick="saveNote(${si},${ii})">Save note</button>
-              <button class="btn btn-xs btn-ghost" onclick="cancelNote(${si},${ii})">Cancel</button>
-            </div>`:''}
-          <div class="item-actions-row">
-            <button class="action-link gold" onclick="toggleNote(${si},${ii})">${st.editingNote?'':(st.note?'✏ note':'+ note')}</button>
-            <button class="action-link" onclick="triggerUpload(${si},${ii})">
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1v7M3 4l3-3 3 3M1 10h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              photo/video
-            </button>
-            <input type="file" accept="image/*,video/*" capture="environment" class="hidden-file" id="file-${si}-${ii}" onchange="handleUpload(${si},${ii},this)"/>
-          </div>
-        </div>
-      </div>`;
-    });
-    html += `</div></div>`;
-  });
-  document.getElementById('boat-tab-content').innerHTML = html;
-}
-
-function toggleCheck(si,ii) {
-  const k=itemKey(currentList,si,ii);
-  if(!checkState[k]) checkState[k]={};
-  checkState[k].checked=!checkState[k].checked;
-  renderChecklist(); updateSubmitBar();
-}
-function toggleNote(si,ii) {
-  const k=itemKey(currentList,si,ii);
-  if(!checkState[k]) checkState[k]={};
-  checkState[k].editingNote=true; renderChecklist();
-  setTimeout(()=>{ const ta=document.getElementById(`note-ta-${si}-${ii}`); if(ta){ta.focus();ta.setSelectionRange(ta.value.length,ta.value.length);} },30);
-}
-function saveNote(si,ii) {
-  const k=itemKey(currentList,si,ii);
-  const ta=document.getElementById(`note-ta-${si}-${ii}`);
-  if(!checkState[k]) checkState[k]={};
-  checkState[k].note=ta?ta.value.trim():''; checkState[k].editingNote=false; renderChecklist();
-}
-function cancelNote(si,ii) { const k=itemKey(currentList,si,ii); if(checkState[k]) checkState[k].editingNote=false; renderChecklist(); }
-
-function triggerUpload(si,ii) { document.getElementById(`file-${si}-${ii}`).click(); }
-async function handleUpload(si,ii,input) {
-  const file=input.files[0]; if(!file) return;
-  const k=itemKey(currentList,si,ii);
-  if(!checkState[k]) checkState[k]={};
-  checkState[k].uploading=true; renderChecklist(); showToast('Uploading…');
-  try {
-    const base64=await fileToBase64(file);
-    const result=await apiPost('uploadFile',{boat:currentBoat,list:currentList,fileName:file.name,mimeType:file.type,data:base64});
-    if(result.url){
-      if(!checkState[k].attachments) checkState[k].attachments=[];
-      checkState[k].attachments.push({url:result.url,type:file.type.startsWith('video/')?'video':'image'});
-      showToast('Uploaded','success');
-    } else { showToast('Upload failed','error'); }
-  } catch(e) { showToast('Upload error','error'); }
-  checkState[k].uploading=false; renderChecklist(); input.value='';
-}
-function fileToBase64(file) {
-  return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result.split(',')[1]); r.onerror=rej; r.readAsDataURL(file); });
-}
-
-function updateSubmitBar() {
-  if(!currentBoat){document.getElementById('submit-bar').style.display='none';return;}
-  document.getElementById('submit-bar').style.display='flex';
-  document.getElementById('submit-boat-name').textContent=currentBoat;
+function renderChecklist(){
   const sections=fleetData[currentBoat].checklists[currentList]||[];
   let total=0,done=0;
-  sections.forEach((s,si)=>s.items.forEach((_,ii)=>{ total++; if(checkState[itemKey(currentList,si,ii)]?.checked) done++; }));
-  document.getElementById('submit-progress-text').textContent=`${done}/${total} items — ${currentList}`;
+  sections.forEach((s,si)=>s.items.forEach((_,ii)=>{total++;if(checkState[itemKey(currentList,si,ii)]?.checked)done++;}));
+  const pct=total?Math.round(done/total*100):0;
+  let html=`<div style="margin-bottom:20px"><div class="progress-label"><span>${esc(currentList)}</span><span>${done}/${total} complete</span></div><div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div></div>`;
+  sections.forEach((sec,si)=>{
+    const sd=sec.items.filter((_,ii)=>checkState[itemKey(currentList,si,ii)]?.checked).length;
+    html+=`<div class="section-block"><div class="section-head"><span class="section-head-name">${esc(sec.section)}</span><span class="section-head-count">${sd}/${sec.items.length}</span></div><div class="section-items">`;
+    sec.items.forEach((item,ii)=>{
+      const k=itemKey(currentList,si,ii);const st=checkState[k]||{};const att=st.attachments||[];
+      let thumbs=att.map(a=>a.type==='image'?`<div class="attachment-thumb" onclick="openLightbox('${esc(a.url)}','')"><img src="${esc(a.url)}" loading="lazy"/></div>`:`<a class="attachment-thumb" href="${esc(a.url)}" target="_blank" rel="noopener"><div class="video-badge">▶</div></a>`).join('');
+      if(st.uploading)thumbs+=`<div class="attachment-uploading"><div class="spinner" style="width:14px;height:14px;border-width:1.5px"></div><span>Uploading</span></div>`;
+      html+=`<div class="checklist-row ${st.checked?'done':''}"><div class="check-box ${st.checked?'checked':''}" onclick="toggleCheck(${si},${ii})"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4L4 7.5L10 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="item-content"><div class="item-text">${esc(item)}</div>${st.note&&!st.editingNote?`<div class="item-note-display">📝 ${esc(st.note)}</div>`:''}${att.length||st.uploading?`<div class="item-attachments">${thumbs}</div>`:''}${st.editingNote?`<textarea class="note-textarea" id="note-ta-${si}-${ii}" placeholder="Add a note...">${esc(st.note||'')}</textarea><div class="note-save-row"><button class="btn btn-xs" style="background:var(--gold-pale);color:var(--gold);border:none" onclick="saveNote(${si},${ii})">Save note</button><button class="btn btn-xs btn-ghost" onclick="cancelNote(${si},${ii})">Cancel</button></div>`:''}<div class="item-actions-row"><button class="action-link gold" onclick="toggleNote(${si},${ii})">${st.editingNote?'':(st.note?'✏ note':'+ note')}</button><button class="action-link" onclick="triggerUpload(${si},${ii})"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1v7M3 4l3-3 3 3M1 10h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>photo/video</button><input type="file" accept="image/*,video/*" capture="environment" class="hidden-file" id="file-${si}-${ii}" onchange="handleUpload(${si},${ii},this)"/></div></div></div>`;
+    });
+    html+=`</div></div>`;
+  });
+
+  // NOTIFY PANEL
+  const contacts=(fleetData[currentBoat].contacts||[]);
+  html+=`<div class="notify-panel"><div class="notify-panel-title">Send summary to</div><div class="notify-contacts">`;
+  if(!contacts.length){
+    html+=`<div class="notify-empty">No contacts added yet. <button class="action-link" onclick="showContacts()" style="color:var(--teal)">Add contacts →</button></div>`;
+  } else {
+    contacts.forEach((c,ci)=>{
+      html+=`<label class="notify-contact-row"><input type="checkbox" id="notify-${ci}" checked /><div style="flex:1"><div class="notify-contact-name">${esc(c.name)}</div><div class="notify-contact-detail">${esc(c.email)}${c.phone?` · ${esc(c.phone)}`:''}</div></div></label>`;
+    });
+  }
+  html+=`</div></div>`;
+
+  document.getElementById('boat-tab-content').innerHTML=html;
 }
 
-async function submitInspection() {
+function toggleCheck(si,ii){const k=itemKey(currentList,si,ii);if(!checkState[k])checkState[k]={};checkState[k].checked=!checkState[k].checked;renderChecklist();updateSubmitBar();}
+function toggleNote(si,ii){const k=itemKey(currentList,si,ii);if(!checkState[k])checkState[k]={};checkState[k].editingNote=true;renderChecklist();setTimeout(()=>{const ta=document.getElementById(`note-ta-${si}-${ii}`);if(ta){ta.focus();ta.setSelectionRange(ta.value.length,ta.value.length);}},30);}
+function saveNote(si,ii){const k=itemKey(currentList,si,ii);const ta=document.getElementById(`note-ta-${si}-${ii}`);if(!checkState[k])checkState[k]={};checkState[k].note=ta?ta.value.trim():'';checkState[k].editingNote=false;renderChecklist();}
+function cancelNote(si,ii){const k=itemKey(currentList,si,ii);if(checkState[k])checkState[k].editingNote=false;renderChecklist();}
+function triggerUpload(si,ii){document.getElementById(`file-${si}-${ii}`).click();}
+async function handleUpload(si,ii,input){const file=input.files[0];if(!file)return;const k=itemKey(currentList,si,ii);if(!checkState[k])checkState[k]={};checkState[k].uploading=true;renderChecklist();showToast('Uploading…');try{const b64=await fileToBase64(file);const r=await apiPost('uploadFile',{boat:currentBoat,list:currentList,fileName:file.name,mimeType:file.type,data:b64});if(r.url){if(!checkState[k].attachments)checkState[k].attachments=[];checkState[k].attachments.push({url:r.url,type:file.type.startsWith('video/')?'video':'image'});showToast('Uploaded','success');}else{showToast('Upload failed','error');}}catch(e){showToast('Upload error','error');}checkState[k].uploading=false;renderChecklist();input.value='';}
+function fileToBase64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result.split(',')[1]);r.onerror=rej;r.readAsDataURL(file);});}
+function openLightbox(url,caption){document.getElementById('lightbox-img').src=url;document.getElementById('lightbox-caption').textContent=caption||'';document.getElementById('lightbox').classList.add('open');}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
+
+// ---- SUBMIT ----
+function updateSubmitBar(){if(!currentBoat){document.getElementById('submit-bar').style.display='none';return;}document.getElementById('submit-bar').style.display='flex';document.getElementById('submit-boat-name').textContent=currentBoat;const sections=fleetData[currentBoat].checklists[currentList]||[];let total=0,done=0;sections.forEach((s,si)=>s.items.forEach((_,ii)=>{total++;if(checkState[itemKey(currentList,si,ii)]?.checked)done++;}));document.getElementById('submit-progress-text').textContent=`${done}/${total} items — ${currentList}`;}
+
+async function submitInspection(){
   const sections=fleetData[currentBoat].checklists[currentList]||[];
   const items=[];
-  sections.forEach((s,si)=>{ s.items.forEach((item,ii)=>{ const st=checkState[itemKey(currentList,si,ii)]||{}; items.push({section:s.section,item,checked:!!st.checked,note:st.note||'',attachments:(st.attachments||[]).map(a=>a.url).join(',')}); }); });
+  sections.forEach((s,si)=>{s.items.forEach((item,ii)=>{const st=checkState[itemKey(currentList,si,ii)]||{};items.push({section:s.section,item,checked:!!st.checked,note:st.note||'',attachments:(st.attachments||[]).map(a=>a.url).join(',')});});});
   const done=items.filter(i=>i.checked).length;
+
+  // collect checked notify contacts
+  const contacts=fleetData[currentBoat].contacts||[];
+  const notifyList=contacts.filter((_,ci)=>{const el=document.getElementById(`notify-${ci}`);return el&&el.checked;});
+
   showToast('Saving…');
-  try {
-    await apiPost('submitInspection',{boat:currentBoat,list:currentList,items:JSON.stringify(items),done,total:items.length,date:new Date().toLocaleString()});
-    // Invalidate cache for this boat/list so history reloads fresh
-    if(historyCache[currentBoat]) delete historyCache[currentBoat][currentList];
-    checkState={}; renderChecklist(); updateSubmitBar();
-    showToast(`Saved — ${done}/${items.length} complete`,'success');
-  } catch(e) { showToast('Error saving','error'); }
+  try{
+    await apiPost('submitInspection',{boat:currentBoat,list:currentList,items:JSON.stringify(items),done,total:items.length,date:new Date().toLocaleString(),notifyContacts:JSON.stringify(notifyList)});
+    if(historyCache[currentBoat])delete historyCache[currentBoat][currentList];
+    checkState={};renderChecklist();updateSubmitBar();
+    showToast('Saved — '+done+'/'+items.length+' complete'+(notifyList.length?' · emailed '+notifyList.length+' contact'+(notifyList.length===1?'':'s'):''),'success');
+  }catch(e){showToast('Error saving','error');}
 }
 
-// ---- LIGHTBOX ----
-function openLightbox(url, caption) {
-  document.getElementById('lightbox-img').src=url;
-  document.getElementById('lightbox-caption').textContent=caption||'';
-  document.getElementById('lightbox').classList.add('open');
-}
-function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
-
-// ---- HISTORY VIEW ----
-function returnFromHistory() { showBoatDetail(currentBoat); }
-
-async function showHistory() {
-  showView('history');
+// ---- CONTACTS ----
+function showContacts(){
+  showView('contacts');
   document.getElementById('submit-bar').style.display='none';
-  document.getElementById('history-boat-label').textContent=currentBoat;
-
-  // Load all lists for this boat
-  const lists = Object.keys(fleetData[currentBoat].checklists||{});
-  currentHistoryList = currentList; // default to currently active list
-
-  // Render filter tabs
-  renderHistoryFilterTabs(lists);
-
-  // Load history for current list
-  await loadAndRenderHistory(currentHistoryList);
+  document.getElementById('contacts-label').textContent=`${currentBoat} — Contacts`;
+  renderContacts();
 }
-
-function renderHistoryFilterTabs(lists) {
-  document.getElementById('history-filter-tabs').innerHTML = lists.map(l =>
-    `<button class="filter-tab ${l===currentHistoryList?'active':''}" onclick="switchHistoryList('${esc(l)}')">${esc(l)}</button>`
-  ).join('');
-}
-
-async function switchHistoryList(list) {
-  currentHistoryList = list;
-  renderHistoryFilterTabs(Object.keys(fleetData[currentBoat].checklists||{}));
-  await loadAndRenderHistory(list);
-}
-
-async function loadAndRenderHistory(list) {
-  document.getElementById('history-content').innerHTML='<div class="loading"><div class="spinner"></div> Loading inspections...</div>';
-
-  // Use cache if available
-  if(historyCache[currentBoat]?.[list]) {
-    renderHistoryEntries(historyCache[currentBoat][list]);
-    return;
+function renderContacts(){
+  const contacts=fleetData[currentBoat].contacts||[];
+  let html=`<p style="font-size:13px;color:var(--text-muted);margin-bottom:20px">Contacts receive email summaries when you check their name on inspection submission.</p>`;
+  if(contacts.length){
+    html+=contacts.map((c,ci)=>`<div class="contact-card"><div class="contact-avatar">${esc(c.name.charAt(0).toUpperCase())}</div><div class="contact-info"><div class="contact-name">${esc(c.name)}</div><div class="contact-detail">${esc(c.email)}${c.phone?` · ${esc(c.phone)}`:''}</div></div><button class="btn btn-danger btn-xs" onclick="removeContact(${ci})">Remove</button></div>`).join('');
+  } else {
+    html+=`<div style="font-size:13px;color:var(--text-dim);margin-bottom:16px">No contacts yet.</div>`;
   }
-
-  try {
-    const data = await api('getHistory',{boat:currentBoat,list});
-    if(!historyCache[currentBoat]) historyCache[currentBoat]={};
-    historyCache[currentBoat][list] = data.history||[];
-    renderHistoryEntries(historyCache[currentBoat][list]);
-  } catch(e) {
-    document.getElementById('history-content').innerHTML='<div class="empty-state"><div class="empty-state-icon">⚠</div><div class="empty-state-title">Could not load history</div></div>';
-  }
+  html+=`<button class="btn btn-primary" onclick="openModal('modal-add-contact')" style="margin-top:8px">+ Add contact</button>`;
+  document.getElementById('contacts-content').innerHTML=html;
+}
+async function saveContact(){
+  const name=document.getElementById('contact-name').value.trim();
+  const email=document.getElementById('contact-email').value.trim();
+  const phone=document.getElementById('contact-phone').value.trim();
+  if(!name||!email){showToast('Name and email required','error');return;}
+  if(!fleetData[currentBoat].contacts)fleetData[currentBoat].contacts=[];
+  fleetData[currentBoat].contacts.push({name,email,phone});
+  closeModal('modal-add-contact');
+  document.getElementById('contact-name').value='';
+  document.getElementById('contact-email').value='';
+  document.getElementById('contact-phone').value='';
+  await apiPost('updateBoatContacts',{name:currentBoat,contacts:JSON.stringify(fleetData[currentBoat].contacts)});
+  renderContacts();
+  showToast('Contact added','success');
+}
+async function removeContact(ci){
+  if(!confirm('Remove this contact?'))return;
+  fleetData[currentBoat].contacts.splice(ci,1);
+  await apiPost('updateBoatContacts',{name:currentBoat,contacts:JSON.stringify(fleetData[currentBoat].contacts)});
+  renderContacts();
+  showToast('Contact removed');
 }
 
-function renderHistoryEntries(history) {
-  if(!history.length) {
-    document.getElementById('history-content').innerHTML=`
-      <div class="empty-state">
-        <div class="empty-state-icon">📋</div>
-        <div class="empty-state-title">No inspections yet</div>
-        <div class="empty-state-sub">Submit your first inspection to see it here</div>
-      </div>`;
-    return;
-  }
-
-  // Summary chips
-  const total     = history.length;
-  const complete  = history.filter(h=>h.total&&h.done===h.total).length;
-  const photoCount= history.reduce((acc,h)=>acc+(h.items||[]).reduce((a,it)=>a+((it.attachments||'').split(',').filter(Boolean).length),0),0);
-  document.getElementById('history-summary-chips').innerHTML=`
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <span style="font-size:12px;color:var(--text-muted)">${total} inspection${total===1?'':'s'}</span>
-      <span style="font-size:12px;color:var(--teal)">✓ ${complete} complete</span>
-      ${photoCount?`<span style="font-size:12px;color:var(--text-muted)">📷 ${photoCount} photo${photoCount===1?'':'s'}</span>`:''}
-    </div>`;
-
-  const entries = history.slice().reverse().map((h,idx) => buildEntryHTML(h, idx)).join('');
-  document.getElementById('history-content').innerHTML=`<div class="history-timeline">${entries}</div>`;
-}
-
-function buildEntryHTML(h, idx) {
-  const pct      = h.total ? Math.round(h.done/h.total*100) : 0;
-  const isComplete = pct === 100;
-  const cls      = isComplete ? 'complete' : 'partial';
-  const icon     = isComplete ? '✓' : '◑';
-  const items    = h.items||[];
-
-  // Group items by section
-  const sections = {};
-  const secOrder = [];
-  items.forEach(it => {
-    if(!sections[it.section]){sections[it.section]=[];secOrder.push(it.section);}
-    sections[it.section].push(it);
-  });
-
-  // Count photos across all items
-  const totalPhotos = items.reduce((acc,it)=>acc+((it.attachments||'').split(',').filter(Boolean).length),0);
-
-  // Build section rows
-  let sectionsHTML = '';
-  secOrder.forEach(secName => {
-    const secItems = sections[secName];
-    const secDone  = secItems.filter(it=>it.checked).length;
-    sectionsHTML += `<div class="report-section">
-      <div class="report-section-header">
-        <span class="report-section-name">${esc(secName)}</span>
-        <span class="report-section-score">${secDone}/${secItems.length}</span>
-      </div>`;
-    secItems.forEach(it => {
-      const mediaUrls = (it.attachments||'').split(',').filter(Boolean);
-      const mediaHTML = mediaUrls.map(url => {
-        const isVideo = url.includes('/file/d/');
-        return isVideo
-          ? `<a class="report-video-link" href="${esc(url)}" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polygon points="3,1 11,6 3,11" fill="currentColor"/></svg>
-              View video
-            </a>`
-          : `<img class="report-photo" src="${esc(url)}" loading="lazy"
-              onclick="openLightbox('${esc(url)}','${esc(it.item)}')"
-              title="${esc(it.item)}" />`;
-      }).join('');
-      sectionsHTML += `<div class="report-item">
-        <div class="report-status ${it.checked?'pass':'fail'}">${it.checked?'✓':'✗'}</div>
-        <div class="report-item-body">
-          <div class="report-item-label ${it.checked?'':'failed'}">${esc(it.item)}</div>
-          ${it.note?`<div class="report-item-note">📝 ${esc(it.note)}</div>`:''}
-          ${mediaHTML?`<div class="report-item-media">${mediaHTML}</div>`:''}
-        </div>
-      </div>`;
-    });
-    sectionsHTML += `</div>`;
-  });
-
-  // Summary footer
-  const summaryText = isComplete
-    ? `✅ All ${h.total} items passed`
-    : `⚠️ ${h.total-h.done} item${h.total-h.done===1?'':'s'} incomplete`;
-
-  return `<div class="history-entry ${cls}" id="entry-${idx}">
-    <div class="entry-header" onclick="toggleEntry(${idx})">
-      <div class="entry-icon ${cls}">${icon}</div>
-      <div class="entry-meta">
-        <div class="entry-title">${esc(h.date)}</div>
-        <div class="entry-subtitle">
-          ${esc(currentHistoryList)}
-          ${totalPhotos?` &nbsp;·&nbsp; 📷 ${totalPhotos} photo${totalPhotos===1?'':'s'}`:''}
-        </div>
-      </div>
-      <div class="entry-right">
-        <div class="entry-score">
-          <div class="entry-score-num">${pct}%</div>
-          <div class="entry-score-lbl">${h.done}/${h.total} done</div>
-        </div>
-        <span class="entry-badge ${isComplete?'badge-complete':'badge-partial'}">${isComplete?'Complete':'Partial'}</span>
-        <span class="entry-chevron" id="chevron-${idx}">›</span>
-      </div>
-    </div>
-    <div class="entry-progress">
-      <div class="entry-progress-fill ${cls}" style="width:${pct}%"></div>
-    </div>
-    <div class="entry-body" id="body-${idx}">
-      ${sectionsHTML}
-      <div class="report-summary">
-        <span class="report-summary-text ${cls}">${summaryText}</span>
-        <div class="report-summary-stats">
-          <div class="report-stat"><div class="report-stat-num">${h.done}</div><div class="report-stat-lbl">Passed</div></div>
-          <div class="report-stat"><div class="report-stat-num">${h.total-h.done}</div><div class="report-stat-lbl">Missed</div></div>
-          ${totalPhotos?`<div class="report-stat"><div class="report-stat-num">${totalPhotos}</div><div class="report-stat-lbl">Photos</div></div>`:''}
-        </div>
-      </div>
-    </div>
-  </div>`;
-}
-
-function toggleEntry(idx) {
-  const body    = document.getElementById(`body-${idx}`);
-  const chevron = document.getElementById(`chevron-${idx}`);
-  const isOpen  = body.classList.toggle('open');
-  chevron.classList.toggle('open', isOpen);
-}
+// ---- HISTORY ----
+function returnFromHistory(){showBoatDetail(currentBoat);}
+async function showHistory(){showView('history');document.getElementById('submit-bar').style.display='none';document.getElementById('history-boat-label').textContent=currentBoat;const lists=Object.keys(fleetData[currentBoat].checklists||{});currentHistoryList=currentList;renderHistoryFilterTabs(lists);await loadAndRenderHistory(currentHistoryList);}
+function renderHistoryFilterTabs(lists){document.getElementById('history-filter-tabs').innerHTML=lists.map(l=>`<button class="filter-tab ${l===currentHistoryList?'active':''}" onclick="switchHistoryList('${esc(l)}')">${esc(l)}</button>`).join('');}
+async function switchHistoryList(list){currentHistoryList=list;renderHistoryFilterTabs(Object.keys(fleetData[currentBoat].checklists||{}));await loadAndRenderHistory(list);}
+async function loadAndRenderHistory(list){document.getElementById('history-content').innerHTML='<div class="loading"><div class="spinner"></div> Loading inspections...</div>';if(historyCache[currentBoat]?.[list]){renderHistoryEntries(historyCache[currentBoat][list]);return;}try{const d=await api('getHistory',{boat:currentBoat,list});if(!historyCache[currentBoat])historyCache[currentBoat]={};historyCache[currentBoat][list]=d.history||[];renderHistoryEntries(historyCache[currentBoat][list]);}catch(e){document.getElementById('history-content').innerHTML='<div class="empty-state"><div class="empty-state-icon">⚠</div><div class="empty-state-title">Could not load history</div></div>';}}
+function renderHistoryEntries(history){if(!history.length){document.getElementById('history-content').innerHTML=`<div class="empty-state"><div class="empty-state-icon">📋</div><div class="empty-state-title">No inspections yet</div><div class="empty-state-sub">Submit your first inspection to see it here</div></div>`;return;}const total=history.length;const complete=history.filter(h=>h.total&&h.done===h.total).length;const photos=history.reduce((a,h)=>a+(h.items||[]).reduce((b,it)=>b+((it.attachments||'').split(',').filter(Boolean).length),0),0);document.getElementById('history-summary-chips').innerHTML=`<div style="display:flex;gap:8px;flex-wrap:wrap"><span style="font-size:12px;color:var(--text-muted)">${total} inspection${total===1?'':'s'}</span><span style="font-size:12px;color:var(--teal)">✓ ${complete} complete</span>${photos?`<span style="font-size:12px;color:var(--text-muted)">📷 ${photos} photo${photos===1?'':'s'}</span>`:''}</div>`;document.getElementById('history-content').innerHTML=`<div class="history-timeline">${history.slice().reverse().map((h,idx)=>buildEntryHTML(h,idx)).join('')}</div>`;}
+function buildEntryHTML(h,idx){const pct=h.total?Math.round(h.done/h.total*100):0;const ok=pct===100;const cls=ok?'complete':'partial';const items=h.items||[];const sections={};const secOrder=[];items.forEach(it=>{if(!sections[it.section]){sections[it.section]=[];secOrder.push(it.section);}sections[it.section].push(it);});const tp=items.reduce((a,it)=>a+((it.attachments||'').split(',').filter(Boolean).length),0);let sHTML='';secOrder.forEach(sn=>{const si=sections[sn];const sd=si.filter(it=>it.checked).length;sHTML+=`<div class="report-section"><div class="report-section-header"><span class="report-section-name">${esc(sn)}</span><span class="report-section-score">${sd}/${si.length}</span></div>`;si.forEach(it=>{const mu=(it.attachments||'').split(',').filter(Boolean);const mh=mu.map(u=>u.includes('/file/d/')?`<a class="report-video-link" href="${esc(u)}" target="_blank" rel="noopener"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polygon points="3,1 11,6 3,11" fill="currentColor"/></svg>View video</a>`:`<img class="report-photo" src="${esc(u)}" loading="lazy" onclick="openLightbox('${esc(u)}','${esc(it.item)}')" title="${esc(it.item)}" />`).join('');sHTML+=`<div class="report-item"><div class="report-status ${it.checked?'pass':'fail'}">${it.checked?'✓':'✗'}</div><div class="report-item-body"><div class="report-item-label ${it.checked?'':'failed'}">${esc(it.item)}</div>${it.note?`<div class="report-item-note">📝 ${esc(it.note)}</div>`:''}${mh?`<div class="report-item-media">${mh}</div>`:''}</div></div>`;});sHTML+=`</div>`;});const st=ok?`✅ All ${h.total} items passed`:`⚠️ ${h.total-h.done} item${h.total-h.done===1?'':'s'} incomplete`;return`<div class="history-entry ${cls}" id="entry-${idx}"><div class="entry-header" onclick="toggleEntry(${idx})"><div class="entry-icon ${cls}">${ok?'✓':'◑'}</div><div class="entry-meta"><div class="entry-title">${esc(h.date)}</div><div class="entry-subtitle">${esc(currentHistoryList)}${tp?` · 📷 ${tp} photo${tp===1?'':'s'}`:''}</div></div><div class="entry-right"><div class="entry-score"><div class="entry-score-num">${pct}%</div><div class="entry-score-lbl">${h.done}/${h.total} done</div></div><span class="entry-badge ${ok?'badge-complete':'badge-partial'}">${ok?'Complete':'Partial'}</span><span class="entry-chevron" id="chevron-${idx}">›</span></div></div><div class="entry-progress"><div class="entry-progress-fill ${cls}" style="width:${pct}%"></div></div><div class="entry-body" id="body-${idx}">${sHTML}<div class="report-summary"><span class="report-summary-text ${cls}">${st}</span><div class="report-summary-stats"><div class="report-stat"><div class="report-stat-num">${h.done}</div><div class="report-stat-lbl">Passed</div></div><div class="report-stat"><div class="report-stat-num">${h.total-h.done}</div><div class="report-stat-lbl">Missed</div></div>${tp?`<div class="report-stat"><div class="report-stat-num">${tp}</div><div class="report-stat-lbl">Photos</div></div>`:''}</div></div></div></div>`;}
+function toggleEntry(idx){const b=document.getElementById(`body-${idx}`);const c=document.getElementById(`chevron-${idx}`);const o=b.classList.toggle('open');c.classList.toggle('open',o);}
 
 // ---- MANAGE ----
-function showManage() {
-  showView('manage');
-  document.getElementById('submit-bar').style.display='none';
-  document.getElementById('manage-label').textContent=`${currentBoat} — Manage checklists`;
-  renderManage();
-}
-
-function renderManage() {
-  const b=fleetData[currentBoat];
-  const lists=Object.keys(b.checklists||{});
-  let html=`<div class="edit-hint">Click any name to rename it. When you add, rename or remove anything, you'll choose which checklists to apply the change to.</div>`;
-  lists.forEach(listName=>{
-    const sections=b.checklists[listName];
-    html+=`<div style="margin-bottom:32px">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-        <p class="section-label" style="margin:0">${esc(listName)}</p>
-        <button class="btn btn-danger btn-xs" onclick="removeList('${esc(listName)}')">Remove list</button>
-      </div>`;
-    sections.forEach((sec,si)=>{
-      html+=`<div style="margin-bottom:10px">
-        <div style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:rgba(255,255,255,0.05);border:0.5px solid var(--border);border-radius:var(--radius-sm) var(--radius-sm) 0 0">
-          <input class="inline-input" value="${esc(sec.section)}" onblur="manageSectionRename('${esc(listName)}',${si},this.value)" />
-          <button class="btn btn-danger btn-xs" onclick="manageRemoveSection('${esc(listName)}',${si})">Remove</button>
-        </div>
-        <div style="border:0.5px solid var(--border);border-top:none;border-radius:0 0 var(--radius-sm) var(--radius-sm);padding:4px 12px">
-          ${sec.items.map((item,ii)=>`
-            <div class="checklist-name-row">
-              <input class="inline-input" value="${esc(item)}" onblur="manageItemRename('${esc(listName)}',${si},${ii},this.value)" />
-              <button class="btn btn-danger btn-xs" onclick="manageRemoveItem('${esc(listName)}',${si},${ii})">✕</button>
-            </div>`).join('')}
-          <div class="checklist-name-row">
-            <input class="inline-input" id="ni-${listName.replace(/\W/g,'_')}-${si}" placeholder="+ Add item..." onkeydown="if(event.key==='Enter')manageAddItem('${esc(listName)}',${si})"/>
-            <button class="btn btn-primary btn-xs" onclick="manageAddItem('${esc(listName)}',${si})">Add</button>
-          </div>
-        </div>
-      </div>`;
-    });
-    html+=`<div style="display:flex;gap:8px;margin-top:8px">
-      <input class="form-input" id="ns-${listName.replace(/\W/g,'_')}" placeholder="New section name..." style="flex:1;font-size:13px;padding:8px 12px" onkeydown="if(event.key==='Enter')manageAddSection('${esc(listName)}')" />
-      <button class="btn btn-ghost btn-sm" onclick="manageAddSection('${esc(listName)}')">Add section</button>
-    </div></div>`;
-  });
-  html+=`<div style="display:flex;gap:8px;padding-top:20px;border-top:0.5px solid var(--border)">
-    <input class="form-input" id="new-list-name" placeholder="New checklist name (e.g. Generator check)..." style="flex:1;font-size:13px;padding:8px 12px" onkeydown="if(event.key==='Enter')manageAddList()" />
-    <button class="btn btn-primary btn-sm" onclick="manageAddList()">Add checklist</button>
-  </div>`;
-  document.getElementById('manage-content').innerHTML=html;
-}
-
-// ---- APPLY TO LISTS MODAL ----
-function openApplyModal(description, applyFn) {
-  const lists=Object.keys(fleetData[currentBoat].checklists||{});
-  document.getElementById('apply-modal-desc').textContent=description;
-  document.getElementById('apply-list-checks').innerHTML=lists.map(l=>`
-    <label class="list-check-row">
-      <input type="checkbox" value="${esc(l)}" checked />
-      <span class="list-check-label">${esc(l)}</span>
-    </label>`).join('');
-  pendingApply=applyFn;
-  openModal('modal-apply-lists');
-}
-function confirmApplyLists() {
-  const selected=Array.from(document.querySelectorAll('#apply-list-checks input:checked')).map(c=>c.value);
-  closeModal('modal-apply-lists');
-  if(pendingApply) pendingApply(selected);
-  pendingApply=null;
-}
-
-async function persist() {
-  await apiPost('updateBoatChecklists',{name:currentBoat,checklists:JSON.stringify(fleetData[currentBoat].checklists)});
-}
-function manageSectionRename(list,si,val){const old=fleetData[currentBoat].checklists[list][si].section;if(val===old||!val.trim())return;openApplyModal(`Rename section "${old}" → "${val}" on:`,selectedLists=>{selectedLists.forEach(l=>{if(fleetData[currentBoat].checklists[l]?.[si])fleetData[currentBoat].checklists[l][si].section=val;});persist();renderManage();showToast('Renamed','success');});}
-function manageItemRename(list,si,ii,val){const old=fleetData[currentBoat].checklists[list][si].items[ii];if(val===old||!val.trim())return;openApplyModal(`Rename "${old}" → "${val}" on:`,selectedLists=>{selectedLists.forEach(l=>{const items=fleetData[currentBoat].checklists[l]?.[si]?.items;if(items&&items[ii]!==undefined)items[ii]=val;});persist();renderManage();showToast('Renamed','success');});}
-function manageRemoveItem(list,si,ii){const item=fleetData[currentBoat].checklists[list][si].items[ii];openApplyModal(`Remove "${item}" from:`,selectedLists=>{selectedLists.forEach(l=>{const items=fleetData[currentBoat].checklists[l]?.[si]?.items;if(items)items.splice(ii,1);});persist();renderManage();showToast('Removed');});}
-function manageRemoveSection(list,si){if(!confirm('Remove this section?'))return;const name=fleetData[currentBoat].checklists[list][si].section;openApplyModal(`Remove section "${name}" from:`,selectedLists=>{selectedLists.forEach(l=>{if(fleetData[currentBoat].checklists[l]?.[si])fleetData[currentBoat].checklists[l].splice(si,1);});persist();renderManage();showToast('Section removed');});}
-function manageAddItem(list,si){const el=document.getElementById(`ni-${list.replace(/\W/g,'_')}-${si}`);if(!el||!el.value.trim())return;const val=el.value.trim();el.value='';openApplyModal(`Add "${val}" to:`,selectedLists=>{selectedLists.forEach(l=>{if(fleetData[currentBoat].checklists[l]?.[si])fleetData[currentBoat].checklists[l][si].items.push(val);});persist();renderManage();showToast('Added','success');});}
-function manageAddSection(list){const el=document.getElementById(`ns-${list.replace(/\W/g,'_')}`);if(!el||!el.value.trim())return;const val=el.value.trim();el.value='';openApplyModal(`Add section "${val}" to:`,selectedLists=>{selectedLists.forEach(l=>{if(fleetData[currentBoat].checklists[l])fleetData[currentBoat].checklists[l].push({section:val,items:[]});});persist();renderManage();showToast('Section added','success');});}
-function manageAddList(){const el=document.getElementById('new-list-name');if(!el||!el.value.trim())return;const name=el.value.trim();if(fleetData[currentBoat].checklists[name]){showToast('Already exists');return;}fleetData[currentBoat].checklists[name]=[];el.value='';persist();renderManage();showToast('Checklist added','success');}
-function removeList(list){if(!confirm(`Remove the "${list}" checklist?`))return;delete fleetData[currentBoat].checklists[list];persist();renderManage();showToast('Removed');}
+function showManage(){showView('manage');document.getElementById('submit-bar').style.display='none';document.getElementById('manage-label').textContent=`${currentBoat} — Manage checklists`;renderManage();}
+function renderManage(){const b=fleetData[currentBoat];const lists=Object.keys(b.checklists||{});let html=`<div class="edit-hint">Click any name to rename it. When you add, rename or remove anything, you'll choose which checklists to apply the change to.</div>`;lists.forEach(ln=>{const sections=b.checklists[ln];html+=`<div style="margin-bottom:32px"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><p class="section-label" style="margin:0">${esc(ln)}</p><button class="btn btn-danger btn-xs" onclick="removeList('${esc(ln)}')">Remove list</button></div>`;sections.forEach((sec,si)=>{html+=`<div style="margin-bottom:10px"><div style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:rgba(255,255,255,0.05);border:0.5px solid var(--border);border-radius:var(--radius-sm) var(--radius-sm) 0 0"><input class="inline-input" value="${esc(sec.section)}" onblur="manageSectionRename('${esc(ln)}',${si},this.value)" /><button class="btn btn-danger btn-xs" onclick="manageRemoveSection('${esc(ln)}',${si})">Remove</button></div><div style="border:0.5px solid var(--border);border-top:none;border-radius:0 0 var(--radius-sm) var(--radius-sm);padding:4px 12px">${sec.items.map((item,ii)=>`<div class="checklist-name-row"><input class="inline-input" value="${esc(item)}" onblur="manageItemRename('${esc(ln)}',${si},${ii},this.value)" /><button class="btn btn-danger btn-xs" onclick="manageRemoveItem('${esc(ln)}',${si},${ii})">✕</button></div>`).join('')}<div class="checklist-name-row"><input class="inline-input" id="ni-${ln.replace(/\W/g,'_')}-${si}" placeholder="+ Add item..." onkeydown="if(event.key==='Enter')manageAddItem('${esc(ln)}',${si})"/><button class="btn btn-primary btn-xs" onclick="manageAddItem('${esc(ln)}',${si})">Add</button></div></div></div>`;});html+=`<div style="display:flex;gap:8px;margin-top:8px"><input class="form-input" id="ns-${ln.replace(/\W/g,'_')}" placeholder="New section name..." style="flex:1;font-size:13px;padding:8px 12px" onkeydown="if(event.key==='Enter')manageAddSection('${esc(ln)}')" /><button class="btn btn-ghost btn-sm" onclick="manageAddSection('${esc(ln)}')">Add section</button></div></div>`;});html+=`<div style="display:flex;gap:8px;padding-top:20px;border-top:0.5px solid var(--border)"><input class="form-input" id="new-list-name" placeholder="New checklist name..." style="flex:1;font-size:13px;padding:8px 12px" onkeydown="if(event.key==='Enter')manageAddList()" /><button class="btn btn-primary btn-sm" onclick="manageAddList()">Add checklist</button></div>`;document.getElementById('manage-content').innerHTML=html;}
+function openApplyModal(desc,fn){const lists=Object.keys(fleetData[currentBoat].checklists||{});document.getElementById('apply-modal-desc').textContent=desc;document.getElementById('apply-list-checks').innerHTML=lists.map(l=>`<label class="list-check-row"><input type="checkbox" value="${esc(l)}" checked /><span class="list-check-label">${esc(l)}</span></label>`).join('');pendingApply=fn;openModal('modal-apply-lists');}
+function confirmApplyLists(){const sel=Array.from(document.querySelectorAll('#apply-list-checks input:checked')).map(c=>c.value);closeModal('modal-apply-lists');if(pendingApply)pendingApply(sel);pendingApply=null;}
+async function persist(){await apiPost('updateBoatChecklists',{name:currentBoat,checklists:JSON.stringify(fleetData[currentBoat].checklists)});}
+function manageSectionRename(l,si,v){const o=fleetData[currentBoat].checklists[l][si].section;if(v===o||!v.trim())return;openApplyModal(`Rename "${o}" → "${v}" on:`,s=>{s.forEach(x=>{if(fleetData[currentBoat].checklists[x]?.[si])fleetData[currentBoat].checklists[x][si].section=v;});persist();renderManage();showToast('Renamed','success');});}
+function manageItemRename(l,si,ii,v){const o=fleetData[currentBoat].checklists[l][si].items[ii];if(v===o||!v.trim())return;openApplyModal(`Rename "${o}" → "${v}" on:`,s=>{s.forEach(x=>{const it=fleetData[currentBoat].checklists[x]?.[si]?.items;if(it&&it[ii]!==undefined)it[ii]=v;});persist();renderManage();showToast('Renamed','success');});}
+function manageRemoveItem(l,si,ii){const item=fleetData[currentBoat].checklists[l][si].items[ii];openApplyModal(`Remove "${item}" from:`,s=>{s.forEach(x=>{const it=fleetData[currentBoat].checklists[x]?.[si]?.items;if(it)it.splice(ii,1);});persist();renderManage();showToast('Removed');});}
+function manageRemoveSection(l,si){if(!confirm('Remove this section?'))return;const n=fleetData[currentBoat].checklists[l][si].section;openApplyModal(`Remove "${n}" from:`,s=>{s.forEach(x=>{if(fleetData[currentBoat].checklists[x]?.[si])fleetData[currentBoat].checklists[x].splice(si,1);});persist();renderManage();showToast('Section removed');});}
+function manageAddItem(l,si){const el=document.getElementById(`ni-${l.replace(/\W/g,'_')}-${si}`);if(!el||!el.value.trim())return;const v=el.value.trim();el.value='';openApplyModal(`Add "${v}" to:`,s=>{s.forEach(x=>{if(fleetData[currentBoat].checklists[x]?.[si])fleetData[currentBoat].checklists[x][si].items.push(v);});persist();renderManage();showToast('Added','success');});}
+function manageAddSection(l){const el=document.getElementById(`ns-${l.replace(/\W/g,'_')}`);if(!el||!el.value.trim())return;const v=el.value.trim();el.value='';openApplyModal(`Add section "${v}" to:`,s=>{s.forEach(x=>{if(fleetData[currentBoat].checklists[x])fleetData[currentBoat].checklists[x].push({section:v,items:[]});});persist();renderManage();showToast('Section added','success');});}
+function manageAddList(){const el=document.getElementById('new-list-name');if(!el||!el.value.trim())return;const n=el.value.trim();if(fleetData[currentBoat].checklists[n]){showToast('Already exists');return;}fleetData[currentBoat].checklists[n]=[];el.value='';persist();renderManage();showToast('Checklist added','success');}
+function removeList(l){if(!confirm(`Remove the "${l}" checklist?`))return;delete fleetData[currentBoat].checklists[l];persist();renderManage();showToast('Removed');}
 
 loadFleet();
 </script>
